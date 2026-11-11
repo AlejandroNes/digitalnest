@@ -54,4 +54,16 @@ class GuidesTest extends TestCase
     {
         $this->get('/')->assertOk()->assertSee(route('posts.index'), false);
     }
+
+    public function test_fixed_pages_render_and_are_linked_from_the_footer(): void
+    {
+        foreach (['pages.about' => 'Sobre DigitalNest', 'pages.method' => 'Cómo probamos las herramientas', 'pages.affiliates' => 'Afiliados y transparencia'] as $route => $title) {
+            $this->get(route($route))->assertOk()->assertSee($title);
+        }
+
+        $this->get('/')->assertOk()
+            ->assertSee(route('pages.method'), false)
+            ->assertSee(route('pages.affiliates'), false)
+            ->assertSee(route('pages.about'), false);
+    }
 }

@@ -37,7 +37,7 @@
         <div class="dn-wrap dn-footer-grid">
             <div>
                 <p class="dn-brand">@include('public.partials.brand-mark') DigitalNest</p>
-                <p class="dn-footer-note">Probamos herramientas digitales y de IA para que elijas con datos: precio real, plan gratis y cómo funcionan en español. Algunos enlaces son de afiliado y siempre están señalados; no cambian nuestro veredicto.</p>
+                <p class="dn-footer-note">Probamos herramientas digitales y de IA para que elijas con datos: precio real, plan gratis y cómo funcionan en español. Algunos enlaces son de afiliado y siempre están señalados; <a href="{{ route('pages.affiliates') }}" style="text-decoration:underline">no cambian nuestro veredicto</a>.</p>
             </div>
             <nav aria-label="Pie de página">
                 <ul>
@@ -45,6 +45,9 @@
                     <li><a href="{{ route('workflows.index') }}">Flujos de trabajo</a></li>
                     <li><a href="{{ route('templates.index') }}">Plantillas</a></li>
                     <li><a href="{{ route('posts.index') }}">Guías</a></li>
+                    <li><a href="{{ route('pages.about') }}">Sobre DigitalNest</a></li>
+                    <li><a href="{{ route('pages.method') }}">Cómo probamos</a></li>
+                    <li><a href="{{ route('pages.affiliates') }}">Afiliados</a></li>
                     <li><a href="{{ route('contact.create') }}">Contacto</a></li>
                     <li><a href="{{ route('legal.show', ['type' => 'privacy']) }}">Privacidad</a></li>
                     <li><a href="{{ route('legal.show', ['type' => 'terms']) }}">Términos</a></li>

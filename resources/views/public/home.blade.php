@@ -66,6 +66,7 @@
                 <h2 id="metodo" class="dn-h2">Cómo probamos cada herramienta</h2>
                 <p class="dn-soft" style="margin-top:.4rem">Ninguna ficha se publica sin pasar por estas tres comprobaciones.</p>
             </div>
+            <a class="dn-link" href="{{ route('pages.method') }}">Nuestro método completo @include('public.partials.icon', ['name' => 'arrow', 'size' => 16])</a>
         </div>
         <div class="dn-method">
             <div>

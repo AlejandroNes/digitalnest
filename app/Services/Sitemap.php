@@ -162,6 +162,11 @@ class Sitemap
         foreach (LegalPage::query()->published()->select(['type', 'content_updated_at'])->cursor() as $page) {
             yield [route('legal.show', ['type' => $page->type->value], false), $page->content_updated_at?->toAtomString()];
         }
+        foreach (['pages.about', 'pages.method', 'pages.affiliates'] as $fixedPage) {
+            if (Route::has($fixedPage)) {
+                yield [route($fixedPage, absolute: false), null];
+            }
+        }
     }
 
     /** @return Generator<int, array{string, ?string}> */
