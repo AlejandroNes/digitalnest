@@ -1,6 +1,8 @@
-# Laravel Corporate Starter Kit
+# DigitalNest
 
-Base privada y reutilizable para sitios corporativos con administración Filament. Cada cliente tiene repositorio, instalación, base de datos, archivos y dominio independientes. El frontend se adapta con Blade al diseño del cliente.
+Sitio en español para aprender a usar la IA y las herramientas digitales en el trabajo: fichas de herramientas probadas, flujos de trabajo, plantillas y guías. Sustituye al sitio WordPress anterior. El producto, la estructura y la hoja de ruta están en [11 · Plan DigitalNest](docs/11-PLAN-DIGITALNEST.md).
+
+Se construye sobre una base Laravel corporativa con administración Filament; lo que sigue describe esa base. Los módulos Herramientas, Flujos y Plantillas aún no están implementados.
 
 Actualizado: **14 de octubre de 2026**. El código de los módulos base está implementado; la aceptación completa de producción y algunas revisiones visuales siguen pendientes. El detalle verificable está en [Estado y auditoría](docs/05-AUDITORIA-FINAL.md).
 
@@ -58,6 +60,7 @@ Codex, Antigravity y otros agentes deben leer [AGENTS.md](AGENTS.md), revisar Gi
 | [09 · Asistente](docs/09-ASISTENTE-DE-CONTACTO.md) | Integración, preguntas, privacidad y simulación |
 | [09 · Portafolio](docs/09-MODULO-PORTAFOLIO.md) | Administración y catálogo público actual |
 | [10 · Mejora del blog](docs/10-PLAN-MEJORA-BLOG.md) | Fases 1–2 entregadas y 3–4 pendientes |
+| [11 · Plan DigitalNest](docs/11-PLAN-DIGITALNEST.md) | Producto, estructura del sitio, alcance y hoja de ruta |
 
 ## Límites del producto
 

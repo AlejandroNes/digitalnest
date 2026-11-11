@@ -2,7 +2,7 @@
 
 Actualizado: 14 de octubre de 2026. Leer primero [AGENTS.md](AGENTS.md), referencia común de autorización, seguridad, colaboración y alcance. Este archivo conserva las guías de framework; no sustituye las instrucciones del usuario ni autoriza instalaciones, fases nuevas, migraciones o despliegues.
 
-Consultar [README](README.md), [plan general](docs/03-PLAN-DE-IMPLEMENTACION.md) y [evidencia actual](docs/05-AUDITORIA-FINAL.md). Las fases 1 y 2 de [mejora del blog](docs/10-PLAN-MEJORA-BLOG.md) están implementadas; las 3 y 4 siguen pendientes. Las verificaciones externas fueron descartadas como tarea de la sesión. Revisar Git antes de tocar archivos: existen cambios locales compartidos.
+Consultar [README](README.md), [plan DigitalNest](docs/11-PLAN-DIGITALNEST.md), [plan general](docs/03-PLAN-DE-IMPLEMENTACION.md) y [evidencia actual](docs/05-AUDITORIA-FINAL.md). Las fases 1 y 2 de [mejora del blog](docs/10-PLAN-MEJORA-BLOG.md) están implementadas; las 3 y 4 siguen pendientes. Las verificaciones externas fueron descartadas como tarea de la sesión. Revisar Git antes de tocar archivos: existen cambios locales compartidos.
 
 <laravel-boost-guidelines>
 === foundation rules ===

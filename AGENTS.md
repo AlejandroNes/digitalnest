@@ -1,7 +1,7 @@
-# Instrucciones para agentes de IA — Laravel Corporate Starter
+# Instrucciones para agentes de IA — DigitalNest
 
 ## Objetivo
-Construir **solo** lo documentado en README y `docs/`. Prioridad: código simple, seguro, mantenible y reutilizable; no añadir funcionalidades especulativas.
+Construir **solo** lo documentado en README y `docs/`. El producto es DigitalNest, definido en [11 · Plan DigitalNest](docs/11-PLAN-DIGITALNEST.md), sobre la base Laravel corporativa existente. Prioridad: código simple, seguro, mantenible y reutilizable; no añadir funcionalidades especulativas ni secciones que ese plan deja fuera de alcance.
 
 ## Referencias y estado de la documentación
 
@@ -22,7 +22,7 @@ No asumir Git limpio ni que los resultados de pruebas de una fecha anterior repr
 1. Antes de programar una fase, inspecciona el repositorio, comprueba dependencias/versiones y propone archivos a modificar. Implementa en pasos pequeños.
 2. Usa convenciones nativas de Laravel y Filament; no crees un framework modular, repository pattern universal, capas o abstracciones sin necesidad demostrada.
 3. No alteres funcionalidades existentes, nombres de rutas, datos ni permisos sin justificarlo y probarlo. Usa migraciones reversibles; no borres datos de producción.
-4. El frontend de cada cliente será único: entrega datos mediante modelos, servicios sencillos, controladores y Blade. No generes páginas corporativas visualmente genéricas ni acoples contenido al diseño.
+4. El frontend de DigitalNest tiene diseño propio: entrega datos mediante modelos, servicios sencillos, controladores y Blade. No generes páginas visualmente genéricas ni acoples contenido al diseño. Los módulos corporativos que el plan oculta (servicios, portafolio, testimonios, FAQ, asistente) no se borran sin decisión explícita.
 5. Todo recurso administrativo debe tener autenticación y autorización en servidor (Policies/Gates), no solo ocultación de menús.
 6. Usa validación de servidor, CSRF, escape de salida, protección de subida de archivos, rate limiting, logs sin datos sensibles y pruebas de casos negativos.
 7. Secretos SMTP/API en variables de entorno o almacenamiento cifrado con acceso restringido; nunca en Git, logs ni HTML. No permitir cambios de infraestructura peligrosos desde Filament.
@@ -34,7 +34,7 @@ No asumir Git limpio ni que los resultados de pruebas de una fecha anterior repr
 13. No agregar backups integrados, ecommerce, CRM, reservas, newsletter, multi-tenancy, constructor de páginas ni multiidioma avanzado.
 
 ## Flujo de trabajo
-- Lee `docs/03-PLAN-DE-IMPLEMENTACION.md`, implementa **una fase a la vez**.
+- Lee `docs/03-PLAN-DE-IMPLEMENTACION.md` y `docs/11-PLAN-DIGITALNEST.md`; implementa **una fase a la vez** y propón los campos de cada módulo nuevo antes de crear migraciones.
 - Ante ambigüedad, elige la solución mínima reversible y documenta el supuesto; pregunta solo si afecta seguridad, datos o alcance.
 - Entrega al terminar: archivos cambiados, migraciones, comandos, pruebas realizadas y pasos manuales requeridos.
 - No ejecutes comandos destructivos, despliegues ni cambios de credenciales sin autorización explícita.
