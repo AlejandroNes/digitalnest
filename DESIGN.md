@@ -12,43 +12,43 @@ colors:
   line: "#dbe5ee"
   paper: "#f6f9fc"
   white: "#ffffff"
+  page: "#f3f7fb"
   pass: "#12804a"
   fair: "#9a6200"
   poor: "#c0322b"
 typography:
   display:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.6rem, 1.5rem + 4.2vw, 4.75rem)"
-    fontWeight: 820
-    lineHeight: 0.98
-    letterSpacing: "-0.045em"
-    fontVariation: "'wdth' 94"
-  headline:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.65rem, 1.2rem + 1.5vw, 2.4rem)"
-    fontWeight: 800
-    lineHeight: 1.05
-    letterSpacing: "-0.035em"
-  title:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.1rem"
-    fontWeight: 720
-    lineHeight: 1.25
-  body:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.0625rem"
-    fontWeight: 400
-    lineHeight: 1.6
-  label:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.8rem"
+    fontFamily: "Poppins, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2rem, 1.3rem + 3.2vw, 3.6rem)"
     fontWeight: 700
-    lineHeight: 1.3
+    lineHeight: 1.12
+    letterSpacing: "-0.025em"
+  headline:
+    fontFamily: "Poppins, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.35rem, 1.15rem + 0.9vw, 1.85rem)"
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: "-0.02em"
+  title:
+    fontFamily: "Poppins, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.05rem"
+    fontWeight: 600
+    lineHeight: 1.35
+  body:
+    fontFamily: "Poppins, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.65
+  label:
+    fontFamily: "Poppins, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.8rem"
+    fontWeight: 500
+    lineHeight: 1.4
 rounded:
   sm: "10px"
-  md: "14px"
-  lg: "18px"
-  xl: "24px"
+  md: "12px"
+  lg: "16px"
+  xl: "20px"
   pill: "999px"
 spacing:
   gutter: "1.25rem"
@@ -58,7 +58,7 @@ components:
   button-primary:
     backgroundColor: "{colors.navy}"
     textColor: "{colors.white}"
-    rounded: "{rounded.pill}"
+    rounded: "{rounded.md}"
     padding: "0 1.4rem"
     height: "48px"
   button-primary-hover:
@@ -66,7 +66,7 @@ components:
   button-secondary:
     backgroundColor: "{colors.white}"
     textColor: "{colors.navy}"
-    rounded: "{rounded.pill}"
+    rounded: "{rounded.md}"
     height: "48px"
   chip:
     backgroundColor: "{colors.white}"
@@ -79,6 +79,10 @@ components:
   panel:
     backgroundColor: "{colors.white}"
     rounded: "{rounded.xl}"
+  tool-card:
+    backgroundColor: "{colors.white}"
+    rounded: "{rounded.xl}"
+    padding: "1.25rem"
   tag-featured:
     backgroundColor: "{colors.coral-soft}"
     textColor: "#a8401a"
@@ -137,24 +141,24 @@ Cielo claro con tinta marina y un punto coral; los colores de veredicto solo com
 
 ## Typography
 
-**Display Font:** Archivo variable (autoalojada en `/fonts/archivo/`, OFL), con `ui-sans-serif, system-ui` de respaldo.
-**Body Font:** Archivo.
+**Display Font:** Poppins (autoalojada en `/fonts/poppins/`, pesos 400, 500, 600 y 700, OFL), con `ui-sans-serif, system-ui` de respaldo.
+**Body Font:** Poppins.
 
-**Character:** una grotesca de trabajo con titulares pesados y apretados; moderna y directa sin perder legibilidad en los datos. Las cifras usan números tabulares.
+**Character:** geométrica, amable y muy legible; los titulares van en 700 con el espaciado ligeramente cerrado y el texto en 400 con interlineado amplio. Elegida por el propietario. Las cifras usan números tabulares.
 
 ### Hierarchy
-- **Display** (820, clamp hasta 4.75rem, 0.98, -0.045em, ancho 94%): titular del hero y títulos de página.
-- **Headline** (800, clamp hasta 2.4rem, 1.05, -0.035em): títulos de sección.
-- **Title** (720, 1.1rem, 1.25): títulos de bloque, nombres en listas.
-- **Body** (400, 1.0625rem, 1.6): texto corrido, máximo 68ch en prosa.
-- **Label** (700, 0.78–0.82rem): cabeceras de tabla, etiquetas de datos, chips de conteo. En minúsculas, sin mayúsculas forzadas.
+- **Display** (700, clamp de 2rem a 3.6rem, 1.12, -0.025em): titular del hero y títulos de página.
+- **Headline** (700, clamp de 1.35rem a 1.85rem, 1.2, -0.02em): títulos de sección.
+- **Title** (600, 1.05rem, 1.35): nombres de herramientas, títulos de bloque y de lista.
+- **Body** (400, 1rem en móvil y 1.0625rem desde 64rem, 1.65): texto corrido, máximo 68ch.
+- **Label** (500–600, 0.75–0.82rem): etiquetas de datos, píldoras y contadores.
 
 ### Named Rules
 **The Tabular Numbers Rule.** Precios, notas y conteos usan `font-variant-numeric: tabular-nums`.
 
 ## Layout
 
-Contenedor centrado de 74rem con un margen lateral mínimo de 1.25rem. Las secciones se separan con `clamp(3rem, 2rem + 3vw, 5rem)`. El hero ocupa todo el ancho y se sitúa bajo la cabecera flotante (margen negativo de 5.25rem). Desde 64rem, el hero usa dos columnas (1.25fr / 1fr). El bento de método usa 1.4fr / 1fr con el primer bloque ocupando dos filas desde 56rem. La ficha técnica pasa de 1 a 2 y a 3 columnas (40rem y 64rem). Por debajo de 48rem, las tablas de resultados se convierten en filas apiladas con las etiquetas de cada dato visibles.
+Fondo de página gris azulado (#f3f7fb) para que las superficies blancas destaquen. Contenedor centrado de 72rem con márgenes de 1.25rem (1rem por debajo de 30rem). El hero celeste ocupa todo el ancho con esquinas inferiores de 32px; las cabeceras de página usan celeste neblina con esquinas de 28px. Las herramientas se muestran en una cuadrícula de tarjetas `repeat(auto-fill, minmax(19rem, 1fr))`: 3 columnas en escritorio, 2 en tableta y 1 en móvil. Por debajo de 48rem: menú hamburguesa, chips de filtro en una fila desplazable, botones del hero a ancho completo y filtros apilados. La comparativa de alternativas es la única tabla y se desplaza en horizontal dentro de su panel.
 
 ## Elevation & Depth
 
@@ -171,12 +175,12 @@ Profundidad por capas suaves: paneles blancos con un anillo casi invisible y som
 
 ## Shapes
 
-Esquinas generosas y consistentes: 10px en insignias de nota y selects, 14px en logos y bloques de encaje, 18px en la nota grande, 24px en paneles y bento, 32px en las esquinas superiores del pie. Botones, chips, etiquetas y navegación son píldoras (999px).
+Esquinas suaves y consistentes: 10px en insignias de nota, 12px en botones, selects, logos y enlaces del menú, 16px en buscador y bloques de encaje, 20px en tarjetas y paneles, 28–32px en hero, cabeceras de página y pie. Chips, etiquetas y píldoras de datos son redondeados completos (999px).
 
 ## Components
 
 ### Buttons
-- **Primario:** píldora marina, texto blanco, 48px (54px en el hero). Al pasar el ratón se aclara a #12345c, sube 1px y gana sombra.
+- **Primario:** rectángulo redondeado (12px) marino, texto blanco, 48px (54px en el hero). Al pasar el ratón se aclara a #12345c, sube 1px y gana sombra.
 - **Secundario:** píldora blanca con texto marino; sobre el hero, junto al primario.
 - **Foco:** contorno de 3px en celeste profundo con 3px de separación, en todos los elementos interactivos.
 
@@ -190,10 +194,13 @@ Píldoras de 44px, blancas con borde de línea y un contador en celeste. Activo:
 Select de 44px con radio de 10px y borde #b9c9d8; casillas con `accent-color` en celeste profundo. Las etiquetas van encima, en estilo Label.
 
 ### Navigation
-Cabecera flotante en píldora, translúcida con desenfoque, pegada a 0.75rem del borde superior. Los enlaces son píldoras; el activo usa fondo neblina y texto celeste profundo.
+Cabecera blanca fija a todo el ancho, translúcida con desenfoque, con línea inferior. Enlaces con radio de 12px; el activo usa fondo neblina y texto celeste profundo. En móvil, botón hamburguesa (44px) que despliega un panel con los enlaces a 48px de alto; se cierra con Escape o al pulsar fuera.
 
-### Results Table (signature)
-Tabla de comparación con logo, nombre, tagline y etiqueta «Recomendada», seguida de nota, precio, plan gratis y español. La fila completa es clicable mediante el `::after` del nombre. En móvil cada fila se reorganiza con los datos etiquetados.
+### Tool card (signature)
+Tarjeta blanca de 20px con logo, nombre, categoría y nota arriba; la frase en medio; y abajo, separadas por una línea, píldoras de precio, plan gratis, español y «Recomendada». Toda la tarjeta es clicable y se eleva 3px al pasar el ratón.
+
+### Comparison table
+Solo en la página de alternativas: logo, nombre, nota, precio, plan gratis y español; desplazable en horizontal en pantallas estrechas.
 
 ### Score badge (signature)
 Nota «9/10» en una insignia tintada con el color de su veredicto y la etiqueta debajo. La versión grande de la ficha usa un bloque de 24px de radio con el anillo del mismo tono.

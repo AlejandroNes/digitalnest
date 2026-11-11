@@ -13,7 +13,7 @@
                 <a href="{{ route('tools.show', ['slug' => $tool->slug]) }}">{{ $tool->name }}</a> <span aria-hidden="true">/</span>
                 <span aria-current="page">Alternativas</span>
             </nav>
-            <h1 class="dn-display dn-title" style="margin-top:1.25rem">Alternativas a {{ $tool->name }}</h1>
+            <h1 class="dn-display dn-title" style="margin-top:1rem">Alternativas a {{ $tool->name }}</h1>
             <p class="dn-lede">¿{{ $tool->name }} no encaja contigo? Compárala con otras opciones que también probamos.</p>
         </div>
     </div>

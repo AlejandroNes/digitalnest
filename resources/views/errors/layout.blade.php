@@ -8,13 +8,14 @@
     <meta name="theme-color" content="#4cc3f0">
     <title>@yield('title') · DigitalNest</title>
     <style>
-        @font-face { font-family: 'Archivo'; src: url('/fonts/archivo/archivo-latin-variable.woff2') format('woff2'); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('/fonts/poppins/poppins-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('/fonts/poppins/poppins-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
         *, *::before { box-sizing: border-box; }
-        body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 1.5rem; background: radial-gradient(50rem 30rem at 85% -10%, #b9ecff, transparent 60%), #4cc3f0; color: #0b2340; font-family: Archivo, ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+        body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 1.5rem; background: radial-gradient(50rem 30rem at 85% -10%, #b9ecff, transparent 60%), #4cc3f0; color: #0b2340; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
         main { width: min(34rem, 100%); padding: clamp(1.75rem, 1rem + 4vw, 3rem); border-radius: 24px; background: #fff; box-shadow: 0 1px 2px #0b23400a, 0 32px 64px -32px #0b234059; }
-        .brand { display: inline-flex; align-items: center; gap: .55rem; color: inherit; font-weight: 820; font-size: 1.15rem; letter-spacing: -.025em; text-decoration: none; }
-        .code { margin: 2rem 0 0; color: #08739f; font-weight: 820; font-size: 4rem; line-height: 1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
-        h1 { margin: .5rem 0 0; font-weight: 820; font-size: clamp(1.6rem, 1.2rem + 2vw, 2.2rem); line-height: 1.05; letter-spacing: -.035em; text-wrap: balance; }
+        .brand { display: inline-flex; align-items: center; gap: .55rem; color: inherit; font-weight: 700; font-size: 1.15rem; letter-spacing: -.025em; text-decoration: none; }
+        .code { margin: 2rem 0 0; color: #08739f; font-weight: 700; font-size: 4rem; line-height: 1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+        h1 { margin: .5rem 0 0; font-weight: 700; font-size: clamp(1.6rem, 1.2rem + 2vw, 2.2rem); line-height: 1.05; letter-spacing: -.035em; text-wrap: balance; }
         p.text { margin: .9rem 0 0; color: #4a5b70; font-size: 1.05rem; line-height: 1.6; }
         .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.75rem; }
         .btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.4rem; border-radius: 999px; background: #0b2340; color: #fff; font-weight: 700; text-decoration: none; }

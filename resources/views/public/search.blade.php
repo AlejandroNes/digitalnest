@@ -7,7 +7,7 @@
 @section('content')
     <div class="dn-page-head dn-page-head--sky">
         <div class="dn-wrap">
-            <h1 class="dn-display dn-title" style="margin-top:1.25rem">
+            <h1 class="dn-display dn-title" style="margin-top:1rem">
                 @if($term !== '')
                     Resultados para «{{ $term }}»
                 @else
@@ -35,7 +35,7 @@
         @if(($results['tools'] ?? collect())->isNotEmpty())
             <section aria-labelledby="r-herramientas" style="margin-bottom:2.5rem">
                 <h2 id="r-herramientas" class="dn-h2" style="margin-bottom:1rem">Herramientas</h2>
-                <div class="dn-panel">@include('public.partials.results-table', ['tools' => $results['tools'], 'caption' => 'Herramientas encontradas'])</div>
+                @include('public.partials.tool-cards', ['tools' => $results['tools']])
             </section>
         @endif
 

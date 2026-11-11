@@ -11,10 +11,10 @@
                 <a href="{{ url('/') }}">Inicio</a> <span aria-hidden="true">/</span>
                 <span aria-current="page">Plantillas</span>
             </nav>
-            <h1 class="dn-display dn-title" style="margin-top:1.25rem">Plantillas listas para usar</h1>
+            <h1 class="dn-display dn-title" style="margin-top:1rem">Plantillas listas para usar</h1>
             <p class="dn-lede">Prompts, instrucciones de sistema, skills y automatizaciones que usamos en nuestros flujos. Cópialas o descárgalas y adáptalas a tu caso.</p>
 
-            <nav aria-label="Tipo de plantilla" class="dn-chips" style="margin-top:1.75rem">
+            <nav aria-label="Tipo de plantilla" class="dn-chips dn-chips--scroll">
                 <a class="dn-chip" href="{{ route('templates.index', array_filter(['herramienta' => $filters['herramienta']?->slug])) }}" @if(! $filters['tipo']) aria-current="page" @endif>Todas</a>
                 @foreach(\App\TemplateType::cases() as $type)
                     <a class="dn-chip" href="{{ route('templates.index', array_filter(['tipo' => $type->value, 'herramienta' => $filters['herramienta']?->slug])) }}" @if($filters['tipo'] === $type) aria-current="page" @endif>{{ $type->getLabel() }}</a>
@@ -42,7 +42,7 @@
                 @if($filters['tipo'] || $filters['herramienta'])
                     <a class="dn-link" href="{{ route('templates.index') }}">Quitar filtros</a>
                 @endif
-                <span class="dn-soft dn-small" style="margin-left:auto; align-self:center">{{ trans_choice(':count plantilla|:count plantillas', $templates->total(), ['count' => $templates->total()]) }}</span>
+                <span class="dn-count">{{ trans_choice(':count plantilla|:count plantillas', $templates->total(), ['count' => $templates->total()]) }}</span>
             </form>
 
             @if($templates->isEmpty())

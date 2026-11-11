@@ -9,7 +9,7 @@ DigitalNest es un sitio nuevo: no se migra contenido ni URLs desde el WordPress 
 - **`.env`:** `APP_NAME=DigitalNest`, `APP_URL` con el dominio definitivo en HTTPS y `CORPORATE_MODULES_ENABLED=false` (servicios, portafolio, testimonios y FAQ ocultos).
 - **Panel → Configuración general:** nombre del sitio «DigitalNest» (se usa en títulos y en la autoría de guías). **Panel → SEO:** título y descripción por defecto, imagen social y activar la indexación solo cuando el contenido real esté publicado.
 - **Datos de ejemplo:** `DigitalNestDemoSeeder` es solo para desarrollo local y se niega a ejecutarse en producción. No ejecutarlo nunca en el servidor; publicar únicamente contenido real desde el panel.
-- **Fuente:** Archivo se sirve desde `public/fonts/archivo/` (licencia OFL incluida); no requiere servicios externos.
+- **Fuente:** Poppins se sirve desde `public/fonts/poppins/` (licencia OFL incluida); no requiere servicios externos.
 - **Permisos:** si se guardó una plantilla de permisos para Administrador antes de añadir Herramientas, Flujos y Plantillas, activar sus permisos en Roles y permisos.
 - **Tras publicar:** dar de alta el dominio nuevo en Search Console y enviar `https://<dominio>/sitemap.xml`.
 

@@ -126,9 +126,7 @@
                 <h2 id="recientes" class="dn-h2">Recién probadas</h2>
                 <a class="dn-link" href="{{ route('tools.index') }}">Ver todas @include('public.partials.icon', ['name' => 'arrow', 'size' => 16])</a>
             </div>
-            <div class="dn-panel">
-                @include('public.partials.results-table', ['tools' => $latest, 'caption' => 'Herramientas probadas recientemente'])
-            </div>
+            @include('public.partials.tool-cards', ['tools' => $latest])
         </section>
     @endif
 @endsection

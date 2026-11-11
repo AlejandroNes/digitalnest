@@ -20,11 +20,11 @@
                     <span aria-current="page">Guías</span>
                 @endif
             </nav>
-            <h1 class="dn-display dn-title" style="margin-top:1.25rem">{{ $category ? 'Guías de '.$category->name : 'Guías' }}</h1>
+            <h1 class="dn-display dn-title" style="margin-top:1rem">{{ $category ? 'Guías de '.$category->name : 'Guías' }}</h1>
             <p class="dn-lede">Tutoriales, comparativas y explicaciones para sacar partido a la IA y a las herramientas digitales, sin tecnicismos.</p>
 
             @if($categories->isNotEmpty())
-                <nav aria-label="Temas" class="dn-chips" style="margin-top:1.75rem">
+                <nav aria-label="Temas" class="dn-chips dn-chips--scroll">
                     <a class="dn-chip" href="{{ route('posts.index') }}" @if(! $category) aria-current="page" @endif>Todas</a>
                     @foreach($categories as $item)
                         <a class="dn-chip" href="{{ route('posts.category', ['slug' => $item->slug]) }}" @if($category?->is($item)) aria-current="page" @endif>{{ $item->name }}</a>
@@ -65,7 +65,7 @@
 
             @php($rest = $lead ? $posts->getCollection()->slice(1) : $posts->getCollection())
             @if($rest->isNotEmpty())
-                <div class="dn-panel" style="margin-top:1.25rem">
+                <div class="dn-panel" style="margin-top:1rem">
                     <ul class="dn-items">
                         @foreach($rest as $post)
                             @include('public.partials.post-item', ['post' => $post])

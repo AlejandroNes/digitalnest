@@ -212,9 +212,7 @@
                     <h2 id="alternativas" class="dn-h2">Alternativas a {{ $tool->name }}</h2>
                     <a class="dn-link" href="{{ route('tools.alternatives', ['slug' => $tool->slug]) }}">Comparar todas @include('public.partials.icon', ['name' => 'arrow', 'size' => 16])</a>
                 </div>
-                <div class="dn-panel">
-                    @include('public.partials.results-table', ['tools' => $alternatives->take(3), 'caption' => 'Alternativas a '.$tool->name])
-                </div>
+                @include('public.partials.tool-cards', ['tools' => $alternatives->take(3)])
             </section>
         @endif
     </div>

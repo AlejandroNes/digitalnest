@@ -11,10 +11,10 @@
                 <a href="{{ url('/') }}">Inicio</a> <span aria-hidden="true">/</span>
                 <span aria-current="page">Flujos</span>
             </nav>
-            <h1 class="dn-display dn-title" style="margin-top:1.25rem">Flujos de trabajo</h1>
+            <h1 class="dn-display dn-title" style="margin-top:1rem">Flujos de trabajo</h1>
             <p class="dn-lede">Casos reales de principio a fin: qué herramientas usamos, en qué orden, qué prompts copiar y cuánto tiempo y dinero lleva.</p>
 
-            <nav aria-label="Para quién" class="dn-chips" style="margin-top:1.75rem">
+            <nav aria-label="Para quién" class="dn-chips dn-chips--scroll">
                 <a class="dn-chip" href="{{ route('workflows.index', array_filter(['nivel' => $filters['nivel']?->value, 'tarea' => $filters['tarea']?->slug])) }}" @if(! $filters['para']) aria-current="page" @endif>Todos</a>
                 @foreach(\App\WorkflowProfession::cases() as $profession)
                     <a class="dn-chip" href="{{ route('workflows.index', array_filter(['para' => $profession->value, 'nivel' => $filters['nivel']?->value, 'tarea' => $filters['tarea']?->slug])) }}" @if($filters['para'] === $profession) aria-current="page" @endif>{{ $profession->getLabel() }}</a>
@@ -51,7 +51,7 @@
                 @if($filters['para'] || $filters['nivel'] || $filters['tarea'])
                     <a class="dn-link" href="{{ route('workflows.index') }}">Quitar filtros</a>
                 @endif
-                <span class="dn-soft dn-small" style="margin-left:auto; align-self:center">{{ trans_choice(':count flujo|:count flujos', $workflows->total(), ['count' => $workflows->total()]) }}</span>
+                <span class="dn-count">{{ trans_choice(':count flujo|:count flujos', $workflows->total(), ['count' => $workflows->total()]) }}</span>
             </form>
 
             @if($workflows->isEmpty())

@@ -1,4 +1,5 @@
 {{-- Expects $tools (iterable of Tool) and $caption (accessible table name). --}}
+<div class="dn-table-wrap">
 <table class="dn-results" aria-label="{{ $caption }}">
     <thead>
         <tr>
@@ -45,3 +46,4 @@
         @endforeach
     </tbody>
 </table>
+</div>

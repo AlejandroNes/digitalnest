@@ -8,7 +8,7 @@
                 <a href="{{ url('/') }}">Inicio</a> <span aria-hidden="true">/</span>
                 <span aria-current="page">{{ $title }}</span>
             </nav>
-            <h1 class="dn-display dn-title" style="margin-top:1.25rem">{{ $title }}</h1>
+            <h1 class="dn-display dn-title" style="margin-top:1rem">{{ $title }}</h1>
             <p class="dn-lede">{{ $lede }}</p>
         </div>
     </div>

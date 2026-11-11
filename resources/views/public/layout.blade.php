@@ -7,20 +7,26 @@
     <meta name="theme-color" content="#4cc3f0">
     @yield('seo')
     @stack('structured-data')
-    <link rel="preload" href="/fonts/archivo/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/poppins/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/poppins/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="dn-site">
     <x-site-integrations position="body_start" />
     <a class="dn-skip" href="#contenido">Saltar al contenido</a>
 
-    <header class="dn-header">
+    <header class="dn-header" data-header>
         <div class="dn-wrap dn-header-row">
             <a class="dn-brand" href="{{ url('/') }}">
                 @include('public.partials.brand-mark')
                 DigitalNest
             </a>
-            <nav class="dn-nav" aria-label="Principal">
+            <button class="dn-menu-toggle" type="button" aria-controls="menu-principal" aria-expanded="false" data-menu-toggle>
+                <span class="dn-visually-hidden">Menú</span>
+                <svg class="dn-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="dn-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+            <nav class="dn-nav" id="menu-principal" aria-label="Principal">
                 <a href="{{ route('tools.index') }}" @if(request()->routeIs('tools.*')) aria-current="page" @endif>Herramientas</a>
                 <a href="{{ route('workflows.index') }}" @if(request()->routeIs('workflows.*')) aria-current="page" @endif>Flujos</a>
                 <a href="{{ route('templates.index') }}" @if(request()->routeIs('templates.*')) aria-current="page" @endif>Plantillas</a>

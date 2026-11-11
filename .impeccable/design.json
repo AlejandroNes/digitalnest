@@ -43,7 +43,7 @@
       "refersTo": "button-primary",
       "description": "Acción principal: píldora marina.",
       "html": "<a class=\"ds-btn\" href=\"#\">Explorar herramientas</a>",
-      "css": ".ds-btn { display: inline-flex; align-items: center; gap: .55rem; min-height: 48px; padding: 0 1.4rem; border-radius: 999px; background: #0b2340; color: #fff; font-family: Archivo, system-ui, sans-serif; font-weight: 700; text-decoration: none; transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease; } .ds-btn:hover { background: #12345c; box-shadow: 0 8px 20px -10px #0b234080; transform: translateY(-1px); } .ds-btn:focus-visible { outline: 3px solid #08739f; outline-offset: 3px; }"
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: .55rem; min-height: 48px; padding: 0 1.4rem; border-radius: 12px; background: #0b2340; color: #fff; font-family: Poppins, system-ui, sans-serif; font-weight: 700; text-decoration: none; transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease; } .ds-btn:hover { background: #12345c; box-shadow: 0 8px 20px -10px #0b234080; transform: translateY(-1px); } .ds-btn:focus-visible { outline: 3px solid #08739f; outline-offset: 3px; }"
     },
     {
       "name": "Secondary Button",
@@ -51,7 +51,7 @@
       "refersTo": "button-secondary",
       "description": "Acción secundaria sobre celeste.",
       "html": "<div style=\"background:#4cc3f0;padding:16px\"><a class=\"ds-btn-2\" href=\"#\">Cómo probamos</a></div>",
-      "css": ".ds-btn-2 { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.4rem; border-radius: 999px; background: #fff; color: #0b2340; font-family: Archivo, system-ui, sans-serif; font-weight: 700; text-decoration: none; } .ds-btn-2:focus-visible { outline: 3px solid #08739f; outline-offset: 3px; }"
+      "css": ".ds-btn-2 { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.4rem; border-radius: 12px; background: #fff; color: #0b2340; font-family: Poppins, system-ui, sans-serif; font-weight: 700; text-decoration: none; } .ds-btn-2:focus-visible { outline: 3px solid #08739f; outline-offset: 3px; }"
     },
     {
       "name": "Task Chip",
@@ -59,7 +59,7 @@
       "refersTo": "chip",
       "description": "Acceso a una categoría por tarea, con contador.",
       "html": "<a class=\"ds-chip\" href=\"#\">Video <span class=\"ds-count\">2</span></a>",
-      "css": ".ds-chip { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .5rem 1.1rem; border: 1px solid #dbe5ee; border-radius: 999px; background: #fff; color: #0b2340; font-family: Archivo, system-ui, sans-serif; font-weight: 650; text-decoration: none; transition: border-color 160ms ease, transform 160ms ease; } .ds-chip:hover { border-color: #08739f; transform: translateY(-1px); } .ds-count { display: inline-grid; place-items: center; min-width: 1.5rem; height: 1.5rem; border-radius: 999px; background: #e6f6fd; color: #08739f; font-size: .78rem; font-weight: 750; }"
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .5rem 1.1rem; border: 1px solid #dbe5ee; border-radius: 999px; background: #fff; color: #0b2340; font-family: Poppins, system-ui, sans-serif; font-weight: 500; text-decoration: none; transition: border-color 160ms ease, transform 160ms ease; } .ds-chip:hover { border-color: #08739f; transform: translateY(-1px); } .ds-count { display: inline-grid; place-items: center; min-width: 1.5rem; height: 1.5rem; border-radius: 999px; background: #e6f6fd; color: #08739f; font-size: .78rem; font-weight: 600; }"
     },
     {
       "name": "Featured Tag",
@@ -67,14 +67,14 @@
       "refersTo": "tag-featured",
       "description": "Marca coral para herramientas recomendadas.",
       "html": "<span class=\"ds-tag\">Recomendada</span>",
-      "css": ".ds-tag { display: inline-flex; padding: .15rem .6rem; border-radius: 999px; background: #fff0e9; color: #a8401a; font-family: Archivo, system-ui, sans-serif; font-size: .78rem; font-weight: 750; }"
+      "css": ".ds-tag { display: inline-flex; padding: .15rem .6rem; border-radius: 999px; background: #fff0e9; color: #a8401a; font-family: Poppins, system-ui, sans-serif; font-size: .78rem; font-weight: 600; }"
     },
     {
       "name": "Score Badge",
       "kind": "custom",
       "description": "Nota sobre 10 tintada por veredicto.",
       "html": "<span class=\"ds-score\">9<small>/10</small></span>",
-      "css": ".ds-score { display: inline-flex; align-items: baseline; gap: .1rem; padding: .3rem .6rem; border-radius: 10px; background: #e3f1e9; color: #12804a; font-family: Archivo, system-ui, sans-serif; font-weight: 820; font-size: 1.15rem; line-height: 1; font-variant-numeric: tabular-nums; } .ds-score small { font-size: .62em; font-weight: 700; opacity: .8; }"
+      "css": ".ds-score { display: inline-flex; align-items: baseline; gap: .1rem; padding: .3rem .6rem; border-radius: 10px; background: #e3f1e9; color: #12804a; font-family: Poppins, system-ui, sans-serif; font-weight: 700; font-size: 1.15rem; line-height: 1; font-variant-numeric: tabular-nums; } .ds-score small { font-size: .62em; font-weight: 700; opacity: .8; }"
     },
     {
       "name": "Panel",
@@ -82,7 +82,7 @@
       "refersTo": "panel",
       "description": "Contenedor blanco de tablas y fichas.",
       "html": "<div class=\"ds-panel\"><div class=\"ds-panel-head\">Nuestras recomendadas</div><div class=\"ds-panel-body\">ChatGPT · 9/10</div></div>",
-      "css": ".ds-panel { overflow: hidden; border: 1px solid #0b23400f; border-radius: 24px; background: #fff; color: #0b2340; font-family: Archivo, system-ui, sans-serif; box-shadow: 0 1px 2px #0b23400a, 0 8px 24px -12px #0b23401f, 0 32px 64px -32px #0b234033; } .ds-panel-head { padding: 1.1rem 1.4rem; border-bottom: 1px solid #dbe5ee; font-weight: 720; } .ds-panel-body { padding: 1rem 1.4rem; }"
+      "css": ".ds-panel { overflow: hidden; border: 1px solid #0b23400f; border-radius: 20px; background: #fff; color: #0b2340; font-family: Poppins, system-ui, sans-serif; box-shadow: 0 1px 2px #0b23400a, 0 8px 24px -12px #0b23401f, 0 32px 64px -32px #0b234033; } .ds-panel-head { padding: 1.1rem 1.4rem; border-bottom: 1px solid #dbe5ee; font-weight: 600; } .ds-panel-body { padding: 1rem 1.4rem; }"
     }
   ],
   "narrative": {

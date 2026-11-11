@@ -35,6 +35,7 @@ Probado por una persona real y escrito en español neutro: cada ficha indica la 
 
 - Nombre: DigitalNest. Identidad visual nueva; no se conserva el logo ni los colores del sitio anterior.
 - Color primario obligatorio: celeste. Combinado con azul marino (texto y acciones) y coral como complementario de acento.
+- Tipografía obligatoria: Poppins.
 - Firma: la marca DigitalNest, sin una persona visible.
 - Voz: tuteo, cercana y directa; útil antes que entusiasta. Español neutro.
 
