@@ -6,7 +6,10 @@ use App\Models\LegalPage;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\Service;
+use App\Models\Tool;
+use App\Models\ToolCategory;
 use Generator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -144,8 +147,44 @@ class Sitemap
                 yield [$path, $service->updated_at?->toAtomString()];
             }
         }
+        yield from $this->toolEntries();
         foreach (LegalPage::query()->published()->select(['type', 'content_updated_at'])->cursor() as $page) {
             yield [route('legal.show', ['type' => $page->type->value], false), $page->content_updated_at?->toAtomString()];
+        }
+    }
+
+    /** @return Generator<int, array{string, ?string}> */
+    private function toolEntries(): Generator
+    {
+        if (! Route::has('tools.index')) {
+            return;
+        }
+        $modified = Tool::query()->published()->max('updated_at');
+        if (! $modified) {
+            return;
+        }
+        yield [route('tools.index', absolute: false), Carbon::parse($modified)->toAtomString()];
+
+        $categories = ToolCategory::query()->active()->where('seo_noindex', false)
+            ->whereHas('tools', fn (Builder $query): Builder => $query->published())
+            ->orderBy('id')->select(['id', 'slug', 'updated_at'])->cursor();
+        foreach ($categories as $category) {
+            yield [route('tools.category', ['slug' => $category->slug], false), $category->updated_at?->toAtomString()];
+        }
+
+        $tools = Tool::query()->published()->where('seo_noindex', false)
+            ->select(['id', 'slug', 'seo_canonical', 'updated_at'])
+            ->withExists(['alternatives as has_published_alternatives' => fn (Builder $query): Builder => $query->published()])
+            ->orderBy('id')->lazy(1000);
+        foreach ($tools as $tool) {
+            $path = route('tools.show', ['slug' => $tool->slug], false);
+            if (! InternalUrl::path($path) || ($tool->seo_canonical && $tool->seo_canonical !== $path)) {
+                continue;
+            }
+            yield [$path, $tool->updated_at?->toAtomString()];
+            if ($tool->has_published_alternatives) {
+                yield [route('tools.alternatives', ['slug' => $tool->slug], false), $tool->updated_at?->toAtomString()];
+            }
         }
     }
 }

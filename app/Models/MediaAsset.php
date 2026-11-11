@@ -78,6 +78,8 @@ class MediaAsset extends Model implements HasMedia
             'search' => SearchSetting::query()->whereIn('og_image_id', clone $media),
             'projects' => Project::query()->where(fn (Builder $query): Builder => $query->whereIn('image_id', clone $media)->orWhereIn('seo_image_id', clone $media)),
             'project_gallery' => ProjectImage::query()->whereIn('media_id', clone $media),
+            'tools' => Tool::query()->where(fn (Builder $query): Builder => $query->whereIn('logo_id', clone $media)
+                ->orWhereIn('image_id', clone $media)->orWhereIn('seo_image_id', clone $media)),
         ];
         if (ContactAssistantSetting::supportsConversation()) {
             $references['contact_assistant'] = ContactAssistantSetting::query()->whereIn('avatar_media_id', clone $media);
@@ -96,6 +98,7 @@ class MediaAsset extends Model implements HasMedia
         $labels = [
             'projects' => 'Proyectos y portafolio',
             'project_gallery' => 'Galerías de proyectos',
+            'tools' => 'Herramientas',
             'posts' => 'Artículos e imágenes SEO',
             'services' => 'Servicios e imágenes SEO',
             'testimonials' => 'Testimonios',

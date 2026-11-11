@@ -57,6 +57,7 @@ class Redirect extends Model
                 'posts.show' => Post::query()->where('slug', $route->parameter('slug'))->exists(),
                 'services.show' => Service::query()->where('slug', $route->parameter('slug'))->exists(),
                 'projects.show' => Project::query()->where('slug', $route->parameter('slug'))->exists(),
+                'tools.show', 'tools.alternatives' => Tool::query()->where('slug', $route->parameter('slug'))->exists(),
                 default => true,
             };
         } catch (NotFoundHttpException|MethodNotAllowedHttpException) {

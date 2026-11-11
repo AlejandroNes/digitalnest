@@ -71,6 +71,16 @@ enum Permission: string
     case UpdateProject = 'projects.update';
     case DeleteProject = 'projects.delete';
 
+    case ViewToolCategory = 'tool_categories.view';
+    case CreateToolCategory = 'tool_categories.create';
+    case UpdateToolCategory = 'tool_categories.update';
+    case DeleteToolCategory = 'tool_categories.delete';
+
+    case ViewTool = 'tools.view';
+    case CreateTool = 'tools.create';
+    case UpdateTool = 'tools.update';
+    case DeleteTool = 'tools.delete';
+
     public function module(): string
     {
         return explode('.', $this->value)[0];
@@ -136,6 +146,14 @@ enum Permission: string
             self::CreateProject => 'Crear proyectos',
             self::UpdateProject => 'Editar proyectos',
             self::DeleteProject => 'Eliminar proyectos',
+            self::ViewToolCategory => 'Ver categorías de herramientas',
+            self::CreateToolCategory => 'Crear categorías de herramientas',
+            self::UpdateToolCategory => 'Editar categorías de herramientas',
+            self::DeleteToolCategory => 'Eliminar categorías de herramientas',
+            self::ViewTool => 'Ver herramientas',
+            self::CreateTool => 'Crear herramientas',
+            self::UpdateTool => 'Editar herramientas',
+            self::DeleteTool => 'Eliminar herramientas',
         };
     }
 }

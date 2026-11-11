@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicContentController;
 use App\Http\Controllers\RobotsController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\ToolController;
 use App\Http\Middleware\ApplySiteSettings;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,10 @@ Route::middleware(ApplySiteSettings::class)->group(function (): void {
     Route::get('/legal/{type}', [PublicContentController::class, 'legal'])->whereIn('type', ['terms', 'privacy'])->name('legal.show');
     Route::get('/proyectos', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('/proyectos/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+    Route::get('/herramientas', [ToolController::class, 'index'])->name('tools.index');
+    Route::get('/herramientas/categoria/{slug}', [ToolController::class, 'category'])->name('tools.category');
+    Route::get('/herramientas/{slug}', [ToolController::class, 'show'])->name('tools.show');
+    Route::get('/herramientas/{slug}/alternativas', [ToolController::class, 'alternatives'])->name('tools.alternatives');
 });
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/sitemaps/{page}.xml', SitemapController::class)->whereNumber('page')->name('sitemap.part');

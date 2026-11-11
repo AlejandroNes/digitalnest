@@ -105,6 +105,12 @@ enum UserRole: string implements HasLabel
             Permission::CreateProject,
             Permission::UpdateProject,
             Permission::DeleteProject,
+            Permission::ViewToolCategory,
+            Permission::CreateToolCategory,
+            Permission::UpdateToolCategory,
+            Permission::ViewTool,
+            Permission::CreateTool,
+            Permission::UpdateTool,
         ];
     }
 }

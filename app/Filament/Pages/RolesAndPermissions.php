@@ -219,6 +219,8 @@ class RolesAndPermissions extends Page
         $userCounts = User::query()->select('role')->selectRaw('COUNT(*) as total')->groupBy('role')->pluck('total', 'role')->all();
         $userCounts[UserRole::Admin->value] = (int) ($userCounts[UserRole::Admin->value] ?? 0) + (int) ($userCounts[UserRole::Administrator->value] ?? 0);
         $modules = [
+            'tools' => ['title' => 'Herramientas', 'description' => 'Fichas de herramientas, alternativas y publicación.'],
+            'tool_categories' => ['title' => 'Categorías de herramientas', 'description' => 'Clasificación del directorio de herramientas.'],
             'posts' => ['title' => 'Artículos y blog', 'description' => 'Publicación y gestión de artículos.'],
             'categories' => ['title' => 'Categorías del blog', 'description' => 'Organización de artículos por categoría.'],
             'projects' => ['title' => 'Proyectos y portafolio', 'description' => 'Publicación, edición y orden de proyectos.'],

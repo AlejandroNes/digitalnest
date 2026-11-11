@@ -10,12 +10,12 @@ Todo contenido responde a: *¿cómo hago X mejor y más rápido con herramientas
 
 Diferenciación frente a los directorios grandes (There's An AI For That, Futurepedia, AlternativeTo):
 
-1. **Español real:** calidad en español, precios en USD/EUR, pagos desde Latinoamérica.
+1. **Español real:** español neutro, calidad de la herramienta en español, precios en USD y pagos desde Latinoamérica.
 2. **Probado por una persona:** capturas propias, resultados reales y fecha de prueba (experiencia E-E-A-T).
 3. **Organizado por tarea y profesión**, no por tecnología.
 4. **Pocas piezas y profundas:** calidad sobre volumen; nada de contenido de relleno.
 
-Público principal propuesto: freelancers, creadores y pequeños negocios (pendiente de confirmar).
+Público principal: freelancers, creadores y pequeños negocios.
 
 ## Estructura del sitio
 
@@ -50,7 +50,7 @@ Menú principal: **Herramientas · IA · Flujos · Plantillas · Guías**. Sin s
 
 ### Herramientas
 
-Ficha: veredicto en una frase, para quién es (y para quién no), prueba con capturas, modelo de precio (gratis, freemium, pago, open source), plan gratis real, precio en USD/EUR, pago desde Latinoamérica, calidad en español, plataformas, privacidad, pros y contras, alternativas, flujos donde aparece, enlace (afiliado cuando exista) y fechas de prueba y actualización. Las ofertas se mencionan dentro de la ficha, no en una sección propia.
+Ficha: veredicto en una frase, para quién es (y para quién no), prueba con capturas, modelo de precio (gratis, freemium, pago, open source), plan gratis real, precio en USD, pago desde Latinoamérica, calidad en español, plataformas, privacidad, pros y contras, alternativas, flujos donde aparece, enlace (afiliado cuando exista) y fechas de prueba y actualización. Las ofertas se mencionan dentro de la ficha, no en una sección propia.
 
 Categorías por tarea: escribir, imagen, video, audio y voz, diseño, programar, marketing y SEO, productividad, automatización, presentaciones, estudio, negocio y freelance.
 
@@ -141,8 +141,8 @@ El tráfico actual es bajo, así que se empieza limpio. Antes del cambio de DNS 
 
 | Fase | Trabajo | Criterio de terminado | Estado |
 | --- | --- | --- | --- |
-| 1 · Fundamentos | Plan documentado; público, tono, método de prueba e identidad visual | Este documento aprobado y decisiones pendientes resueltas | En curso |
-| 2 · Herramientas | Modelo, panel, ficha pública, categorías, alternativas, SEO estructurado | Se publican fichas desde el panel con pruebas | Pendiente |
+| 1 · Fundamentos | Plan documentado; público, idioma y moneda decididos; falta método de prueba e identidad visual | Método de prueba publicado y guía visual aprobada | En curso |
+| 2 · Herramientas | Modelo, panel, ficha pública, categorías, alternativas, SEO estructurado | Se publican fichas desde el panel con pruebas | Implementada; migraciones aplicadas en la base local |
 | 3 · Layout e inicio | Diseño público, menú, inicio, ocultar módulos corporativos | Sitio navegable | Pendiente |
 | 4 · Flujos y plantillas | Módulos, vistas públicas y relaciones | Se publican flujos y plantillas enlazados | Pendiente |
 | 5 · Contenido de lanzamiento | 25 fichas, 10 flujos, 10 plantillas, "Qué modelo usar", "Empieza aquí" | Contenido cargado y revisado | Pendiente |
@@ -151,8 +151,11 @@ El tráfico actual es bajo, así que se empieza limpio. Antes del cambio de DNS 
 
 Las fases 3 y 4 del [plan del blog](10-PLAN-MEJORA-BLOG.md) se revisarán con este enfoque cuando se retomen.
 
-## Decisiones pendientes del propietario
+## Decisiones del propietario
 
-- Confirmar el público principal.
-- Identidad visual: conservar logo/colores o empezar de cero.
-- Variante de español y monedas mostradas.
+Confirmadas el 10 de noviembre de 2026:
+
+- **Público principal:** freelancers, creadores y pequeños negocios.
+- **Identidad visual:** nueva, desde cero; no se conserva el logo ni los colores anteriores.
+- **Idioma:** español neutro.
+- **Moneda:** precios solo en USD.
