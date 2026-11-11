@@ -94,12 +94,13 @@ it('escapes configured text and service names rather than injecting HTML', funct
         ->assertDontSee('<svg onload=alert(3)>', false);
 });
 
-it('integrates the component on home contact and content views without creating abandoned leads', function (): void {
+it('integrates the component on contact and content views without creating abandoned leads', function (): void {
     ContactAssistantSetting::factory()->enabled()->create();
     $service = Service::factory()->create();
-    foreach (['/', '/contacto', '/servicios/'.$service->slug] as $path) {
+    foreach (['/contacto', '/servicios/'.$service->slug] as $path) {
         $this->get($path)->assertOk()->assertSee('data-contact-assistant', false)->assertSee('data-cookie-banner', false);
     }
+    $this->get('/')->assertOk()->assertDontSee('data-contact-assistant', false)->assertSee('data-cookie-banner', false);
     $this->assertDatabaseCount('contact_messages', 0);
 });
 

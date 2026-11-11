@@ -1,0 +1,1 @@
+<span class="dn-mark dn-mark--{{ $state }}">@include('public.partials.icon', ['name' => match($state) { 'yes' => 'check', 'partial' => 'minus', default => 'x' }, 'size' => 16])<span>{{ $text }}</span></span>

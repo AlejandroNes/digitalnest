@@ -1,20 +1,29 @@
-@extends('public.tools.layout')
+@extends('public.layout')
 
 @section('seo')
-    <x-seo :title="'Alternativas a '.$tool->name" :description="'Las mejores alternativas a '.$tool->name.' probadas y comparadas: precio, plan gratis y funcionamiento en español.'" />
+    <x-seo :title="'Alternativas a '.$tool->name.' probadas'" :description="'Comparamos '.$tool->name.' con '.$alternatives->count().' alternativas probadas: precio en USD, plan gratis, nota y funcionamiento en español.'" />
 @endsection
 
 @section('content')
-    <nav aria-label="Migas de pan">
-        <a href="{{ route('tools.index') }}">Herramientas</a>
-        › <a href="{{ route('tools.show', ['slug' => $tool->slug]) }}">{{ $tool->name }}</a>
-        › <span aria-current="page">Alternativas</span>
-    </nav>
+    <div class="dn-page-head dn-page-head--sky">
+        <div class="dn-wrap">
+            <nav class="dn-crumbs" aria-label="Migas de pan">
+                <a href="{{ url('/') }}">Inicio</a> <span aria-hidden="true">/</span>
+                <a href="{{ route('tools.index') }}">Herramientas</a> <span aria-hidden="true">/</span>
+                <a href="{{ route('tools.show', ['slug' => $tool->slug]) }}">{{ $tool->name }}</a> <span aria-hidden="true">/</span>
+                <span aria-current="page">Alternativas</span>
+            </nav>
+            <h1 class="dn-display dn-title" style="margin-top:1.25rem">Alternativas a {{ $tool->name }}</h1>
+            <p class="dn-lede">¿{{ $tool->name }} no encaja contigo? Compárala con otras opciones que también probamos.</p>
+        </div>
+    </div>
 
-    <h1>Alternativas a {{ $tool->name }}</h1>
-    <p>{{ $tool->tagline }}</p>
-
-    @foreach($alternatives as $alternative)
-        @include('public.tools.card', ['tool' => $alternative])
-    @endforeach
+    <div class="dn-wrap">
+        <div class="dn-panel">
+            @include('public.partials.results-table', [
+                'tools' => collect([$tool])->concat($alternatives),
+                'caption' => 'Comparativa de '.$tool->name.' y sus alternativas',
+            ])
+        </div>
+    </div>
 @endsection

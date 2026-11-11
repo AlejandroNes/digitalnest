@@ -172,6 +172,35 @@ class Tool extends Model
         return self::safeUrl($this->affiliate_url) !== null;
     }
 
+    /**
+     * Verdict band for the editorial rating, used by the stamp on listings and reports.
+     *
+     * @return array{label: string, tone: string}|null
+     */
+    public function verdict(): ?array
+    {
+        return match (true) {
+            $this->rating === null => null,
+            $this->rating >= 9 => ['label' => 'Excelente', 'tone' => 'excellent'],
+            $this->rating >= 7 => ['label' => 'Bueno', 'tone' => 'good'],
+            $this->rating >= 5 => ['label' => 'Aceptable', 'tone' => 'fair'],
+            default => ['label' => 'Flojo', 'tone' => 'poor'],
+        };
+    }
+
+    /**
+     * Short USD price such as "$20" or "$8.50", or null when there is no paid price.
+     */
+    public function startingPriceLabel(): ?string
+    {
+        if ($this->starting_price_usd === null || $this->pricing_model?->isFree()) {
+            return null;
+        }
+        $amount = (float) $this->starting_price_usd;
+
+        return '$'.(fmod($amount, 1.0) === 0.0 ? number_format($amount, 0) : number_format($amount, 2));
+    }
+
     public function hasActiveDeal(): bool
     {
         return filled($this->deal_notes) && ($this->deal_expires_at === null || $this->deal_expires_at->gte(today()));
