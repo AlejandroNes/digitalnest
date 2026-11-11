@@ -14,6 +14,7 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\WorkflowController;
 use App\Http\Middleware\ApplySiteSettings;
+use App\Http\Middleware\EnsureCorporateModulesEnabled;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(ApplySiteSettings::class)->group(function (): void {
@@ -29,10 +30,10 @@ Route::middleware(ApplySiteSettings::class)->group(function (): void {
     Route::get('/blog', [BlogController::class, 'index'])->name('posts.index');
     Route::get('/blog/categoria/{slug}', [BlogController::class, 'category'])->name('posts.category');
     Route::get('/blog/{slug}', [PublicContentController::class, 'post'])->name('posts.show');
-    Route::get('/servicios/{slug}', [PublicContentController::class, 'service'])->name('services.show');
+    Route::get('/servicios/{slug}', [PublicContentController::class, 'service'])->middleware(EnsureCorporateModulesEnabled::class)->name('services.show');
     Route::get('/legal/{type}', [PublicContentController::class, 'legal'])->whereIn('type', ['terms', 'privacy'])->name('legal.show');
-    Route::get('/proyectos', [ProjectController::class, 'index'])->name('projects.index');
-    Route::get('/proyectos/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+    Route::get('/proyectos', [ProjectController::class, 'index'])->middleware(EnsureCorporateModulesEnabled::class)->name('projects.index');
+    Route::get('/proyectos/{slug}', [ProjectController::class, 'show'])->middleware(EnsureCorporateModulesEnabled::class)->name('projects.show');
     Route::get('/herramientas', [ToolController::class, 'index'])->name('tools.index');
     Route::get('/herramientas/categoria/{slug}', [ToolController::class, 'category'])->name('tools.category');
     Route::get('/herramientas/{slug}', [ToolController::class, 'show'])->name('tools.show');

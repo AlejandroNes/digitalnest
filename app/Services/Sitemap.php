@@ -134,7 +134,7 @@ class Sitemap
         if (Route::has('contact.create')) {
             yield [route('contact.create', absolute: false), null];
         }
-        if (Route::has('projects.index')) {
+        if (Route::has('projects.index') && config('features.corporate_modules_enabled')) {
             $modified = Project::query()->published()->max('updated_at');
             yield [route('projects.index', absolute: false), $modified ? Carbon::parse($modified)->toAtomString() : null];
         }
@@ -150,7 +150,7 @@ class Sitemap
                 yield [$path, $post->updated_at?->toAtomString()];
             }
         }
-        foreach (Service::query()->active()->where('seo_noindex', false)->orderBy('id')->select(['slug', 'seo_canonical', 'updated_at'])->lazy(1000) as $service) {
+        foreach (config('features.corporate_modules_enabled') ? Service::query()->active()->where('seo_noindex', false)->orderBy('id')->select(['slug', 'seo_canonical', 'updated_at'])->lazy(1000) : [] as $service) {
             $path = route('services.show', ['slug' => $service->slug], false);
             if (InternalUrl::path($path) && (! $service->seo_canonical || $service->seo_canonical === $path)) {
                 yield [$path, $service->updated_at?->toAtomString()];

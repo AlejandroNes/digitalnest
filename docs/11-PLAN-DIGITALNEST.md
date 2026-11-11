@@ -1,6 +1,6 @@
 # 11 · Plan de producto DigitalNest
 
-Actualizado: 10 de noviembre de 2026. Define el producto que se construye sobre esta base Laravel. Sustituye al sitio WordPress actual (digitalnestweb.com), cuyo contenido no se migra salvo las excepciones indicadas. Este documento describe alcance y orden de trabajo; no autoriza por sí mismo migraciones sobre datos, instalaciones ni despliegues.
+Actualizado: 10 de noviembre de 2026. Define el producto que se construye sobre esta base Laravel. Es un sitio nuevo desde cero que sustituye al WordPress actual (digitalnestweb.com); no se migra ningún contenido ni URL del sitio anterior. Este documento describe alcance y orden de trabajo; no autoriza por sí mismo migraciones sobre datos, instalaciones ni despliegues.
 
 ## Propuesta de valor
 
@@ -127,9 +127,9 @@ Los campos exactos se propondrán y aprobarán antes de cada fase, con migracion
 - Fechas de prueba y actualización reales; revisión trimestral de fichas.
 - Páginas ligeras e imágenes optimizadas.
 
-## Migración desde WordPress
+## Sitio anterior
 
-El tráfico actual es bajo, así que se empieza limpio. Antes del cambio de DNS se exportan desde Search Console las URLs con visitas. Solo las que tengan tráfico y encajen (por ejemplo, las guías de Ghibli con ChatGPT o Ideogram) se reescriben y redirigen con 301; el resto devuelve 410.
+Decisión del propietario: no hay migración. No se importa contenido, no se crean redirecciones desde las URLs de WordPress y no se usa Search Console del sitio anterior para planificar. El sitio nuevo se publica limpio.
 
 ## Monetización
 
@@ -146,7 +146,7 @@ El tráfico actual es bajo, así que se empieza limpio. Antes del cambio de DNS 
 | 3 · Layout e inicio | Diseño público, menú, inicio, ocultar módulos corporativos | Sitio navegable | Pendiente |
 | 4 · Flujos y plantillas | Módulos, vistas públicas y relaciones | Se publican flujos y plantillas enlazados | Pendiente |
 | 5 · Contenido de lanzamiento | 25 fichas, 10 flujos, 10 plantillas, "Qué modelo usar", "Empieza aquí" | Contenido cargado y revisado | Pendiente |
-| 6 · Lanzamiento | 301/410, Search Console, cambio de DNS | Sitio en línea e indexándose | Pendiente |
+| 6 · Lanzamiento | Despliegue, Search Console del sitio nuevo, cambio de DNS | Sitio en línea e indexándose | Pendiente |
 | 7 · Crecimiento | Ritmo semanal de fichas y flujos; comparativas y alternativas | Revisión trimestral en Search Console | Pendiente |
 
 Las fases 3 y 4 del [plan del blog](10-PLAN-MEJORA-BLOG.md) se revisarán con este enfoque cuando se retomen.
