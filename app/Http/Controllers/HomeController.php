@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tool;
 use App\Models\ToolCategory;
+use App\Models\Workflow;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -28,6 +29,7 @@ class HomeController extends Controller
             'latest' => Tool::query()->published()->with(['category', 'logo.model'])
                 ->latest('published_at')->limit(4)->get(),
             'toolCount' => Tool::query()->published()->count(),
+            'workflows' => Workflow::query()->published()->withCount('steps')->ordered()->limit(3)->get(),
         ]);
     }
 }

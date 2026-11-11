@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tool;
 use App\Models\ToolCategory;
+use App\Models\Workflow;
 use App\ToolPricingModel;
 use App\ToolSpanishSupport;
 use Illuminate\Contracts\View\View;
@@ -48,6 +49,8 @@ class ToolController extends Controller
         return view('public.tools.show', [
             'tool' => $tool,
             'alternatives' => $this->publishedAlternatives($tool),
+            'workflows' => Workflow::query()->published()->usingTool($tool)->withCount('steps')->ordered()->limit(4)->get(),
+            'templates' => $tool->templates()->published()->ordered()->limit(4)->get(),
         ]);
     }
 

@@ -47,6 +47,7 @@ class AdminPanelProvider extends PanelProvider
             ->strictAuthorization()
             ->navigationGroups([
                 'Herramientas',
+                'Flujos y plantillas',
                 'Blog y Noticias',
                 'Portafolio',
                 'Sitio Corporativo',

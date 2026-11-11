@@ -111,6 +111,12 @@ enum UserRole: string implements HasLabel
             Permission::ViewTool,
             Permission::CreateTool,
             Permission::UpdateTool,
+            Permission::ViewWorkflow,
+            Permission::CreateWorkflow,
+            Permission::UpdateWorkflow,
+            Permission::ViewTemplate,
+            Permission::CreateTemplate,
+            Permission::UpdateTemplate,
         ];
     }
 }

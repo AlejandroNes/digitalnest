@@ -221,6 +221,8 @@ class RolesAndPermissions extends Page
         $modules = [
             'tools' => ['title' => 'Herramientas', 'description' => 'Fichas de herramientas, alternativas y publicación.'],
             'tool_categories' => ['title' => 'Categorías de herramientas', 'description' => 'Clasificación del directorio de herramientas.'],
+            'workflows' => ['title' => 'Flujos de trabajo', 'description' => 'Casos paso a paso con herramientas y plantillas.'],
+            'templates' => ['title' => 'Plantillas', 'description' => 'Prompts, instrucciones y automatizaciones para copiar o descargar.'],
             'posts' => ['title' => 'Artículos y blog', 'description' => 'Publicación y gestión de artículos.'],
             'categories' => ['title' => 'Categorías del blog', 'description' => 'Organización de artículos por categoría.'],
             'projects' => ['title' => 'Proyectos y portafolio', 'description' => 'Publicación, edición y orden de proyectos.'],

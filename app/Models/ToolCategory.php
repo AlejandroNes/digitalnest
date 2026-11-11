@@ -48,6 +48,11 @@ class ToolCategory extends Model
         return $this->hasMany(Tool::class, 'tool_category_id');
     }
 
+    public function workflows(): HasMany
+    {
+        return $this->hasMany(Workflow::class, 'tool_category_id');
+    }
+
     /**
      * Tools listed here as a secondary category.
      */

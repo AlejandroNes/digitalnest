@@ -149,6 +149,11 @@ class Tool extends Model
             ->orderByPivot('sort_order');
     }
 
+    public function templates(): BelongsToMany
+    {
+        return $this->belongsToMany(Template::class, 'template_tool');
+    }
+
     public function logo(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'logo_id');

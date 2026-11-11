@@ -6,8 +6,10 @@ use App\Models\LegalPage;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\Service;
+use App\Models\Template;
 use App\Models\Tool;
 use App\Models\ToolCategory;
+use App\Models\Workflow;
 use Generator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
@@ -148,6 +150,8 @@ class Sitemap
             }
         }
         yield from $this->toolEntries();
+        yield from $this->publishedEntries(Workflow::class, 'workflows.index', 'workflows.show');
+        yield from $this->publishedEntries(Template::class, 'templates.index', 'templates.show');
         foreach (LegalPage::query()->published()->select(['type', 'content_updated_at'])->cursor() as $page) {
             yield [route('legal.show', ['type' => $page->type->value], false), $page->content_updated_at?->toAtomString()];
         }
@@ -184,6 +188,28 @@ class Sitemap
             yield [$path, $tool->updated_at?->toAtomString()];
             if ($tool->has_published_alternatives) {
                 yield [route('tools.alternatives', ['slug' => $tool->slug], false), $tool->updated_at?->toAtomString()];
+            }
+        }
+    }
+
+    /**
+     * @param  class-string<Workflow|Template>  $model
+     * @return Generator<int, array{string, ?string}>
+     */
+    private function publishedEntries(string $model, string $indexRoute, string $showRoute): Generator
+    {
+        if (! Route::has($indexRoute)) {
+            return;
+        }
+        $modified = $model::query()->published()->max('updated_at');
+        if (! $modified) {
+            return;
+        }
+        yield [route($indexRoute, absolute: false), Carbon::parse($modified)->toAtomString()];
+        foreach ($model::query()->published()->where('seo_noindex', false)->orderBy('id')->select(['id', 'slug', 'seo_canonical', 'updated_at'])->lazy(1000) as $record) {
+            $path = route($showRoute, ['slug' => $record->slug], false);
+            if (InternalUrl::path($path) && (! $record->seo_canonical || $record->seo_canonical === $path)) {
+                yield [$path, $record->updated_at?->toAtomString()];
             }
         }
     }

@@ -181,6 +181,31 @@
             @endif
         </article>
 
+        @if($workflows->isNotEmpty() || $templates->isNotEmpty())
+            <div class="dn-section dn-split" style="padding-bottom:0">
+                @if($workflows->isNotEmpty())
+                    <section aria-labelledby="flujos-herramienta">
+                        <h2 id="flujos-herramienta" class="dn-h2" style="margin-bottom:1rem">Flujos con {{ $tool->name }}</h2>
+                        <div class="dn-panel"><ul class="dn-items">
+                            @foreach($workflows as $workflow)
+                                @include('public.partials.workflow-item', ['workflow' => $workflow])
+                            @endforeach
+                        </ul></div>
+                    </section>
+                @endif
+                @if($templates->isNotEmpty())
+                    <section aria-labelledby="plantillas-herramienta">
+                        <h2 id="plantillas-herramienta" class="dn-h2" style="margin-bottom:1rem">Plantillas para {{ $tool->name }}</h2>
+                        <div class="dn-panel"><ul class="dn-items">
+                            @foreach($templates as $template)
+                                @include('public.partials.template-item', ['template' => $template->setRelation('tools', collect())])
+                            @endforeach
+                        </ul></div>
+                    </section>
+                @endif
+            </div>
+        @endif
+
         @if($alternatives->isNotEmpty())
             <section class="dn-section" aria-labelledby="alternativas" style="padding-bottom:0">
                 <div class="dn-section-head">

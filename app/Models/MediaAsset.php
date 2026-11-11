@@ -78,6 +78,9 @@ class MediaAsset extends Model implements HasMedia
             'search' => SearchSetting::query()->whereIn('og_image_id', clone $media),
             'projects' => Project::query()->where(fn (Builder $query): Builder => $query->whereIn('image_id', clone $media)->orWhereIn('seo_image_id', clone $media)),
             'project_gallery' => ProjectImage::query()->whereIn('media_id', clone $media),
+            'workflows' => Workflow::query()->where(fn (Builder $query): Builder => $query->whereIn('image_id', clone $media)->orWhereIn('seo_image_id', clone $media)),
+            'workflow_steps' => WorkflowStep::query()->whereIn('image_id', clone $media),
+            'templates' => Template::query()->whereIn('seo_image_id', clone $media),
             'tools' => Tool::query()->where(fn (Builder $query): Builder => $query->whereIn('logo_id', clone $media)
                 ->orWhereIn('image_id', clone $media)->orWhereIn('seo_image_id', clone $media)),
         ];
@@ -99,6 +102,9 @@ class MediaAsset extends Model implements HasMedia
             'projects' => 'Proyectos y portafolio',
             'project_gallery' => 'Galerías de proyectos',
             'tools' => 'Herramientas',
+            'workflows' => 'Flujos de trabajo',
+            'workflow_steps' => 'Pasos de flujos',
+            'templates' => 'Plantillas',
             'posts' => 'Artículos e imágenes SEO',
             'services' => 'Servicios e imágenes SEO',
             'testimonials' => 'Testimonios',

@@ -86,6 +86,23 @@
         </div>
     </section>
 
+    @if($workflows->isNotEmpty())
+        <section class="dn-wrap" aria-labelledby="flujos" style="padding-bottom:clamp(3rem, 2rem + 3vw, 5rem)">
+            <div class="dn-section-head">
+                <div>
+                    <h2 id="flujos" class="dn-h2">Flujos paso a paso</h2>
+                    <p class="dn-soft" style="margin-top:.4rem">Casos reales con las herramientas, los prompts, el tiempo y el coste.</p>
+                </div>
+                <a class="dn-link" href="{{ route('workflows.index') }}">Ver todos @include('public.partials.icon', ['name' => 'arrow', 'size' => 16])</a>
+            </div>
+            <div class="dn-panel"><ul class="dn-items">
+                @foreach($workflows as $workflow)
+                    @include('public.partials.workflow-item', ['workflow' => $workflow])
+                @endforeach
+            </ul></div>
+        </section>
+    @endif
+
     @if($latest->isNotEmpty())
         <section class="dn-wrap" aria-labelledby="recientes">
             <div class="dn-section-head">

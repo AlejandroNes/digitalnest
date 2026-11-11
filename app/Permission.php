@@ -81,6 +81,16 @@ enum Permission: string
     case UpdateTool = 'tools.update';
     case DeleteTool = 'tools.delete';
 
+    case ViewWorkflow = 'workflows.view';
+    case CreateWorkflow = 'workflows.create';
+    case UpdateWorkflow = 'workflows.update';
+    case DeleteWorkflow = 'workflows.delete';
+
+    case ViewTemplate = 'templates.view';
+    case CreateTemplate = 'templates.create';
+    case UpdateTemplate = 'templates.update';
+    case DeleteTemplate = 'templates.delete';
+
     public function module(): string
     {
         return explode('.', $this->value)[0];
@@ -154,6 +164,14 @@ enum Permission: string
             self::CreateTool => 'Crear herramientas',
             self::UpdateTool => 'Editar herramientas',
             self::DeleteTool => 'Eliminar herramientas',
+            self::ViewWorkflow => 'Ver flujos de trabajo',
+            self::CreateWorkflow => 'Crear flujos de trabajo',
+            self::UpdateWorkflow => 'Editar flujos de trabajo',
+            self::DeleteWorkflow => 'Eliminar flujos de trabajo',
+            self::ViewTemplate => 'Ver plantillas',
+            self::CreateTemplate => 'Crear plantillas',
+            self::UpdateTemplate => 'Editar plantillas',
+            self::DeleteTemplate => 'Eliminar plantillas',
         };
     }
 }
