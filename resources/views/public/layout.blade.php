@@ -45,6 +45,7 @@
                 </ul>
             </nav>
         </div>
+        <p class="dn-wrap dn-footer-legal">© {{ now()->year }} DigitalNest</p>
     </footer>
 
     <x-cookie-consent />
