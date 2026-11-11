@@ -25,6 +25,7 @@
                 <a href="{{ route('workflows.index') }}" @if(request()->routeIs('workflows.*')) aria-current="page" @endif>Flujos</a>
                 <a href="{{ route('templates.index') }}" @if(request()->routeIs('templates.*')) aria-current="page" @endif>Plantillas</a>
                 <a href="{{ route('posts.index') }}" @if(request()->routeIs('posts.*')) aria-current="page" @endif>Guías</a>
+                <a class="dn-nav-search" href="{{ route('search') }}" aria-label="Buscar" @if(request()->routeIs('search')) aria-current="page" @endif>@include('public.partials.icon', ['name' => 'search', 'size' => 18])</a>
             </nav>
         </div>
     </header>

@@ -28,5 +28,8 @@
         @case('download')
             <path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/>
             @break
+        @case('search')
+            <circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>
+            @break
     @endswitch
 </svg>

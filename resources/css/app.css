@@ -383,6 +383,20 @@
 .dn-article .dn-prose blockquote { padding: .25rem 0 .25rem 1.25rem; border-left: 1px solid var(--color-sky); color: var(--color-navy-soft); font-style: italic; }
 .dn-article .dn-prose img { border-radius: 14px; }
 
+/* Search */
+.dn-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.dn-search { display: flex; align-items: center; gap: .5rem; width: min(36rem, 100%); padding: .4rem .4rem .4rem 1rem; border: 1px solid var(--color-line); border-radius: 999px; background: #fff; box-shadow: 0 1px 2px #0b234014, 0 10px 28px -16px #0b234040; transition: border-color 160ms ease, box-shadow 160ms ease; }
+.dn-search:focus-within { border-color: var(--color-sky-deep); box-shadow: 0 0 0 4px #08739f26, 0 10px 28px -16px #0b234040; }
+.dn-search-icon { display: grid; flex: none; color: var(--color-navy-soft); }
+.dn-search-input { flex: 1; min-width: 0; min-height: 44px; border: 0; background: transparent; color: var(--color-navy); font: inherit; font-size: 1.02rem; }
+.dn-search-input:focus { outline: none; }
+.dn-search-input::placeholder { color: #6b7c8f; }
+.dn-search-input::-webkit-search-cancel-button { cursor: pointer; }
+.dn-search--hero { margin-top: 1.75rem; border-color: #fff; }
+.dn-search--page { margin-top: 1.5rem; }
+.dn-nav-search { width: 44px; padding: 0 !important; justify-content: center; }
+@media (max-width: 47.99rem) { .dn-nav-search { width: 40px; } }
+
 /* Footer */
 .dn-footer { margin-top: 6rem; border-radius: 32px 32px 0 0; background: var(--color-navy); color: #d7e3ee; padding-block: 3.5rem 2.5rem; font-size: .95rem; }
 .dn-footer .dn-brand { color: #fff; }

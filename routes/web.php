@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicContentController;
 use App\Http\Controllers\RobotsController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ToolController;
@@ -21,6 +22,7 @@ Route::middleware(ApplySiteSettings::class)->group(function (): void {
     Route::post('/asistente-contacto', [ContactAssistantController::class, 'store'])->middleware('throttle:contact')->name('contact-assistant.store');
     Route::get('/contacto', [ContactMessageController::class, 'create'])->name('contact.create');
     Route::post('/contacto', [ContactMessageController::class, 'store'])->middleware('throttle:contact')->name('contact.store');
+    Route::get('/buscar', SearchController::class)->middleware('throttle:60,1')->name('search');
     Route::view('/como-probamos', 'public.pages.method')->name('pages.method');
     Route::view('/afiliados', 'public.pages.affiliates')->name('pages.affiliates');
     Route::view('/sobre-digitalnest', 'public.pages.about')->name('pages.about');

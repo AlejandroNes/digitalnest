@@ -1,8 +1,9 @@
-@props(['content' => null, 'title' => null, 'description' => null])
+@props(['content' => null, 'title' => null, 'description' => null, 'noindex' => false])
 @php
     $seo = app(\App\Services\Seo::class)->metadata(request(), $content);
     $seo['title'] = filled($title) ? $title : $seo['title'];
     $seo['description'] = filled($description) ? $description : $seo['description'];
+    $seo['robots'] = $noindex ? 'noindex, follow' : $seo['robots'];
 @endphp
 <title>{{ $seo['title'] }}</title>
 <meta name="description" content="{{ $seo['description'] }}">

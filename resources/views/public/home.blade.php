@@ -11,6 +11,8 @@
                 <h1 id="titular" class="dn-display dn-hero-title">Encuentra la herramienta que de verdad <mark>te sirve</mark></h1>
                 <p class="dn-lede">Probamos herramientas digitales y de IA en tareas reales y te contamos lo que importa: precio en USD, si el plan gratis sirve y cómo funcionan en español.</p>
 
+                @include('public.partials.search-form', ['id' => 'buscar-inicio', 'class' => 'dn-search--hero'])
+
                 <div class="dn-hero-actions">
                     <a class="dn-btn dn-btn--lg" href="{{ route('tools.index') }}">Explorar herramientas @include('public.partials.icon', ['name' => 'arrow', 'size' => 18])</a>
                     <a class="dn-btn dn-btn--lg dn-btn--glass" href="#metodo">Cómo probamos</a>
