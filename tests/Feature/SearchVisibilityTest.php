@@ -81,7 +81,7 @@ it('generates a fresh valid sitemap with only canonical published indexable cont
     $xml = simplexml_load_string($response->getContent());
     expect($xml)->not->toBeFalse();
     $urls = array_map(fn ($entry): string => (string) $entry->loc, iterator_to_array($xml->url, false));
-    expect($urls)->toHaveCount(6)->toContain('https://corporate.example.com/', 'https://corporate.example.com/contacto', 'https://corporate.example.com/proyectos', 'https://corporate.example.com/blog/visible', 'https://corporate.example.com/servicios/active', 'https://corporate.example.com/legal/privacy');
+    expect($urls)->toHaveCount(7)->toContain('https://corporate.example.com/', 'https://corporate.example.com/contacto', 'https://corporate.example.com/proyectos', 'https://corporate.example.com/blog', 'https://corporate.example.com/blog/visible', 'https://corporate.example.com/servicios/active', 'https://corporate.example.com/legal/privacy');
     $post->update(['status' => 'draft']);
     $this->get('/sitemap.xml')->assertDontSee('/blog/visible', false)->assertDontSee('/admin', false);
 });

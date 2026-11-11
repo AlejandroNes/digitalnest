@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\Template;
 use App\Models\Tool;
 use App\Models\ToolCategory;
 use App\Models\Workflow;
+use App\PostStatus;
 use App\PublicationStatus;
 use App\TemplateFormat;
 use App\TemplateType;
@@ -108,6 +111,30 @@ class DigitalNestDemoSeeder extends Seeder
         }
 
         $this->seedTemplatesAndWorkflows($categories->all(), $models);
+        $this->seedGuides();
+    }
+
+    private function seedGuides(): void
+    {
+        $topics = collect([['ia', 'IA'], ['tutoriales', 'Tutoriales'], ['comparativas', 'Comparativas']])
+            ->mapWithKeys(fn (array $row): array => [$row[0] => PostCategory::query()->updateOrCreate(['slug' => $row[0]], ['name' => $row[1]])]);
+
+        $guides = [
+            ['que-modelo-de-ia-usar', 'Qué modelo de IA usar para cada tarea', 'Una guía viva: qué modelo recomendamos para escribir, programar, analizar documentos o crear imágenes.', ['ia']],
+            ['empieza-con-la-ia', 'Empieza con la IA en tu trabajo: guía para principiantes', 'Lo mínimo que necesitas saber para usar la IA con criterio desde hoy, sin tecnicismos.', ['ia', 'tutoriales']],
+            ['chatgpt-vs-claude', 'ChatGPT vs Claude: cuál elegir para tu trabajo', 'Comparamos los dos asistentes en tareas reales de freelance: escribir, resumir y responder clientes.', ['comparativas', 'ia']],
+            ['ia-local-ollama', 'IA local con Ollama: privacidad sin pagar suscripciones', 'Cómo usar modelos de IA en tu propio ordenador y cuándo merece la pena.', ['ia', 'tutoriales']],
+        ];
+        foreach ($guides as $index => [$slug, $title, $excerpt, $topicKeys]) {
+            $post = Post::query()->updateOrCreate(['slug' => $slug], [
+                'title' => $title,
+                'excerpt' => $excerpt,
+                'content' => '<p><strong>Contenido de ejemplo.</strong> Aquí irá la guía real.</p><h2>Lo esencial</h2><p>'.str_repeat('Texto de ejemplo para previsualizar el diseño de lectura. ', 20).'</p><h2>Paso a paso</h2><ul><li>Primer punto de ejemplo.</li><li>Segundo punto de ejemplo.</li></ul><blockquote>Una cita destacada de ejemplo.</blockquote><p>'.str_repeat('Más texto de ejemplo para el cuerpo del artículo. ', 25).'</p>',
+                'status' => PostStatus::Published,
+                'published_at' => now()->subDays(2 + $index * 3),
+            ]);
+            $post->categories()->sync(collect($topicKeys)->map(fn (string $key): int => $topics[$key]->id)->all());
+        }
     }
 
     /**

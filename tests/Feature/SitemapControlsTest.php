@@ -121,8 +121,10 @@ class SitemapControlsTest extends TestCase
         Cache::memo()->forget($manifest['prefix'].'1');
         $xml = simplexml_load_string($this->get('/sitemap.xml')->assertOk()->getContent());
         $this->assertSame('', (string) $xml->url[0]->lastmod);
+        $this->assertSame('/blog', parse_url((string) $xml->url[3]->loc, PHP_URL_PATH));
         $this->assertSame($post->updated_at->toAtomString(), (string) $xml->url[3]->lastmod);
-        $this->assertCount(4, $xml->url);
+        $this->assertSame($post->updated_at->toAtomString(), (string) $xml->url[4]->lastmod);
+        $this->assertCount(5, $xml->url);
         GeneralSetting::factory()->create(['id' => 1, 'maintenance_enabled' => true]);
         $this->get('/sitemap.xml')->assertDontSee('/blog/dated', false);
     }

@@ -103,6 +103,20 @@
         </section>
     @endif
 
+    @if($guides->isNotEmpty())
+        <section class="dn-wrap" aria-labelledby="guias" style="padding-bottom:clamp(3rem, 2rem + 3vw, 5rem)">
+            <div class="dn-section-head">
+                <h2 id="guias" class="dn-h2">Guías recientes</h2>
+                <a class="dn-link" href="{{ route('posts.index') }}">Todas las guías @include('public.partials.icon', ['name' => 'arrow', 'size' => 16])</a>
+            </div>
+            <div class="dn-panel"><ul class="dn-items">
+                @foreach($guides as $post)
+                    @include('public.partials.post-item', ['post' => $post])
+                @endforeach
+            </ul></div>
+        </section>
+    @endif
+
     @if($latest->isNotEmpty())
         <section class="dn-wrap" aria-labelledby="recientes">
             <div class="dn-section-head">

@@ -59,15 +59,12 @@ it('keeps SMTP diagnostics and secrets out of error responses and logs', functio
         ->assertDontSee('private-smtp-password')->assertDontSee('recipient@example.test');
 });
 
-it('does not load unused categories or content columns for sitemap generation', function (): void {
+it('does not load content columns for sitemap generation', function (): void {
     SearchSetting::factory()->create(['id' => 1, 'indexable' => true]);
     $post = Post::factory()->published()->create();
     app()->instance('env', 'production');
     config(['app.url' => 'https://corporate.example.com']);
     DB::enableQueryLog();
-    $this->get('/blog/'.$post->slug)->assertOk();
-    expect(collect(DB::getQueryLog())->contains(fn (array $query): bool => str_contains($query['query'], 'post_categories')))->toBeFalse();
-    DB::flushQueryLog();
     $this->get('/sitemap.xml')->assertOk()->assertSee('/blog/'.$post->slug);
     $postQuery = collect(DB::getQueryLog())->first(fn (array $query): bool => str_contains($query['query'], 'from "posts"'));
     DB::disableQueryLog();

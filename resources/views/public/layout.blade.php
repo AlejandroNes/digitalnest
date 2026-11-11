@@ -24,6 +24,7 @@
                 <a href="{{ route('tools.index') }}" @if(request()->routeIs('tools.*')) aria-current="page" @endif>Herramientas</a>
                 <a href="{{ route('workflows.index') }}" @if(request()->routeIs('workflows.*')) aria-current="page" @endif>Flujos</a>
                 <a href="{{ route('templates.index') }}" @if(request()->routeIs('templates.*')) aria-current="page" @endif>Plantillas</a>
+                <a href="{{ route('posts.index') }}" @if(request()->routeIs('posts.*')) aria-current="page" @endif>Guías</a>
             </nav>
         </div>
     </header>
@@ -43,6 +44,7 @@
                     <li><a href="{{ route('tools.index') }}">Herramientas</a></li>
                     <li><a href="{{ route('workflows.index') }}">Flujos de trabajo</a></li>
                     <li><a href="{{ route('templates.index') }}">Plantillas</a></li>
+                    <li><a href="{{ route('posts.index') }}">Guías</a></li>
                     <li><a href="{{ route('contact.create') }}">Contacto</a></li>
                     <li><a href="{{ route('legal.show', ['type' => 'privacy']) }}">Privacidad</a></li>
                     <li><a href="{{ route('legal.show', ['type' => 'terms']) }}">Términos</a></li>

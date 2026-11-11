@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\LegalPage;
 use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Template;
@@ -136,6 +137,12 @@ class Sitemap
         if (Route::has('projects.index')) {
             $modified = Project::query()->published()->max('updated_at');
             yield [route('projects.index', absolute: false), $modified ? Carbon::parse($modified)->toAtomString() : null];
+        }
+        if (Route::has('posts.index') && ($postsModified = Post::query()->published()->max('updated_at'))) {
+            yield [route('posts.index', absolute: false), Carbon::parse($postsModified)->toAtomString()];
+            foreach (PostCategory::query()->whereHas('posts', fn (Builder $query): Builder => $query->published())->orderBy('id')->select(['id', 'slug', 'updated_at'])->cursor() as $postCategory) {
+                yield [route('posts.category', ['slug' => $postCategory->slug], false), $postCategory->updated_at?->toAtomString()];
+            }
         }
         foreach (Post::query()->published()->where('seo_noindex', false)->orderBy('id')->select(['slug', 'seo_canonical', 'updated_at'])->lazy(1000) as $post) {
             $path = route('posts.show', ['slug' => $post->slug], false);

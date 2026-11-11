@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Tool;
 use App\Models\ToolCategory;
 use App\Models\Workflow;
@@ -29,6 +30,7 @@ class HomeController extends Controller
             'latest' => Tool::query()->published()->with(['category', 'logo.model'])
                 ->latest('published_at')->limit(4)->get(),
             'toolCount' => Tool::query()->published()->count(),
+            'guides' => Post::query()->published()->with(['image.model', 'categories'])->newest()->limit(3)->get(),
             'workflows' => Workflow::query()->published()->withCount('steps')->ordered()->limit(3)->get(),
         ]);
     }

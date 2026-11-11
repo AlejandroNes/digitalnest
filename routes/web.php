@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactAssistantController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CookieConsentController;
@@ -20,6 +21,8 @@ Route::middleware(ApplySiteSettings::class)->group(function (): void {
     Route::post('/asistente-contacto', [ContactAssistantController::class, 'store'])->middleware('throttle:contact')->name('contact-assistant.store');
     Route::get('/contacto', [ContactMessageController::class, 'create'])->name('contact.create');
     Route::post('/contacto', [ContactMessageController::class, 'store'])->middleware('throttle:contact')->name('contact.store');
+    Route::get('/blog', [BlogController::class, 'index'])->name('posts.index');
+    Route::get('/blog/categoria/{slug}', [BlogController::class, 'category'])->name('posts.category');
     Route::get('/blog/{slug}', [PublicContentController::class, 'post'])->name('posts.show');
     Route::get('/servicios/{slug}', [PublicContentController::class, 'service'])->name('services.show');
     Route::get('/legal/{type}', [PublicContentController::class, 'legal'])->whereIn('type', ['terms', 'privacy'])->name('legal.show');
