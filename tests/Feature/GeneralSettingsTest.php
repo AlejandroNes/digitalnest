@@ -177,7 +177,7 @@ class GeneralSettingsTest extends TestCase
     public function test_maintenance_blocks_public_site_and_can_be_disabled_from_panel(): void
     {
         GeneralSetting::factory()->create(['id' => 1, 'maintenance_enabled' => true]);
-        $this->get('/')->assertStatus(503)->assertHeader('Retry-After', '3600');
+        $this->get('/')->assertStatus(503)->assertHeader('Retry-After', '3600')->assertSee('Volvemos enseguida')->assertSee('noindex, nofollow', false);
         $this->get('/admin/login')->assertOk();
         $this->actingAs(User::factory()->administrator()->create());
         $this->get('/admin')->assertOk();

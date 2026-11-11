@@ -33,8 +33,8 @@ it('enables HSTS only for secure production responses', function (): void {
 it('renders safe customizable forbidden and missing pages', function (): void {
     config(['app.debug' => false]);
     $this->actingAs(User::factory()->create())->get('/admin/mail-settings')
-        ->assertForbidden()->assertSee('Acceso denegado')->assertDontSee('Stack trace');
-    $this->get('/missing-page')->assertNotFound()->assertSee('Página no encontrada')->assertSee('noindex, nofollow', false);
+        ->assertForbidden()->assertSee('No tienes acceso')->assertDontSee('Stack trace');
+    $this->get('/missing-page')->assertNotFound()->assertSee('Esta página no existe')->assertSee('noindex, nofollow', false);
 });
 
 it('renders a database-independent 500 and removes SQL bindings from exception reports', function (): void {
@@ -44,7 +44,7 @@ it('renders a database-independent 500 and removes SQL bindings from exception r
         throw new QueryException('mysql', 'insert into contact_messages (message) values (?)', ['private-message@example.test'], new RuntimeException('private-password'));
     });
     DB::enableQueryLog();
-    $this->get('/test-database-error')->assertStatus(500)->assertSee('Error interno')
+    $this->get('/test-database-error')->assertStatus(500)->assertSee('Algo ha fallado')
         ->assertDontSee('private-message')->assertDontSee('private-password')->assertDontSee('contact_messages')
         ->assertHeader('X-Content-Type-Options', 'nosniff');
     expect(DB::getQueryLog())->toBe([]);
@@ -55,7 +55,7 @@ it('keeps SMTP diagnostics and secrets out of error responses and logs', functio
     config(['app.debug' => false]);
     Log::shouldReceive('error')->once()->with('mail.transport_failed', ['exception' => TransportException::class]);
     Route::get('/test-mail-error', fn () => throw new TransportException('private-smtp-password recipient@example.test'));
-    $this->get('/test-mail-error')->assertStatus(500)->assertSee('Error interno')
+    $this->get('/test-mail-error')->assertStatus(500)->assertSee('Algo ha fallado')
         ->assertDontSee('private-smtp-password')->assertDontSee('recipient@example.test');
 });
 

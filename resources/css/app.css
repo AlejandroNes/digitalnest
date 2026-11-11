@@ -189,7 +189,7 @@
 .dn-logo--lg { width: 4rem; height: 4rem; border-radius: 16px; font-size: 1.6rem; }
 
 /* Score badge */
-.dn-score { display: inline-flex; align-items: baseline; gap: .1rem; padding: .3rem .6rem; border-radius: 10px; background: color-mix(in srgb, var(--tone) 12%, #fff); color: var(--tone); font-weight: 820; font-size: 1.15rem; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dn-score { display: inline-flex; align-items: baseline; gap: .1rem; padding: .3rem .6rem; border-radius: 10px; background: color-mix(in srgb, var(--tone) 7%, #fff); color: var(--tone); font-weight: 820; font-size: 1.15rem; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .dn-score small { font-size: .62em; font-weight: 700; opacity: .8; }
 .dn-score-label { display: block; margin-top: .3rem; font-size: .74rem; font-weight: 700; color: var(--tone); }
 .dn-tone-excellent { --tone: var(--color-pass); }
@@ -390,7 +390,7 @@
 .dn-search-icon { display: grid; flex: none; color: var(--color-navy-soft); }
 .dn-search-input { flex: 1; min-width: 0; min-height: 44px; border: 0; background: transparent; color: var(--color-navy); font: inherit; font-size: 1.02rem; }
 .dn-search-input:focus { outline: none; }
-.dn-search-input::placeholder { color: #6b7c8f; }
+.dn-search-input::placeholder { color: #5f7083; }
 .dn-search-input::-webkit-search-cancel-button { cursor: pointer; }
 .dn-search--hero { margin-top: 1.75rem; border-color: #fff; }
 .dn-search--page { margin-top: 1.5rem; }

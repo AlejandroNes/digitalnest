@@ -14,8 +14,10 @@ class ApplySiteSettings
         $settings = GeneralSetting::current(false);
 
         if ($settings->maintenance_enabled) {
-            abort(response('El sitio está en mantenimiento. Inténtalo de nuevo más tarde.', 503)
-                ->header('Retry-After', '3600'));
+            $body = $request->expectsJson() || $request->hasHeader('X-Livewire')
+                ? 'El sitio está en mantenimiento. Inténtalo de nuevo más tarde.'
+                : view('errors.503');
+            abort(response($body, 503)->header('Retry-After', '3600'));
         }
 
         $originalLocale = app()->getLocale();

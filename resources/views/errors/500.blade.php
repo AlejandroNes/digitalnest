@@ -1,4 +1,4 @@
 @extends('errors.layout')
 @section('code', '500')
-@section('title', 'Error interno')
-@section('description', 'No pudimos completar la solicitud. Inténtalo de nuevo más tarde.')
+@section('title', 'Algo ha fallado')
+@section('description', 'Ha ocurrido un error inesperado. Ya lo estamos revisando; inténtalo de nuevo en unos minutos.')

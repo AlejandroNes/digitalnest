@@ -141,10 +141,10 @@ Decisión del propietario: no hay migración. No se importa contenido, no se cre
 
 | Fase | Trabajo | Criterio de terminado | Estado |
 | --- | --- | --- | --- |
-| 1 · Fundamentos | Plan documentado; público, idioma y moneda decididos; falta método de prueba e identidad visual | Método de prueba publicado y guía visual aprobada | En curso |
-| 2 · Herramientas | Modelo, panel, ficha pública, categorías, alternativas, SEO estructurado | Se publican fichas desde el panel con pruebas | Implementada; migraciones aplicadas en la base local |
-| 3 · Layout e inicio | Diseño público, menú, inicio, ocultar módulos corporativos | Sitio navegable | Pendiente |
-| 4 · Flujos y plantillas | Módulos, vistas públicas y relaciones | Se publican flujos y plantillas enlazados | Pendiente |
+| 1 · Fundamentos | Plan documentado; público, idioma y moneda decididos; falta método de prueba e identidad visual | Método de prueba publicado y guía visual aprobada | Implementada (textos pendientes de revisión del propietario) |
+| 2 · Herramientas | Modelo, panel, ficha pública, categorías, alternativas, SEO estructurado | Se publican fichas desde el panel con pruebas | Implementada |
+| 3 · Layout e inicio | Diseño público, menú, inicio, ocultar módulos corporativos | Sitio navegable | Implementada |
+| 4 · Flujos y plantillas | Módulos, vistas públicas y relaciones | Se publican flujos y plantillas enlazados | Implementada |
 | 5 · Contenido de lanzamiento | 25 fichas, 10 flujos, 10 plantillas, "Qué modelo usar", "Empieza aquí" | Contenido cargado y revisado | Pendiente |
 | 6 · Lanzamiento | Despliegue, Search Console del sitio nuevo, cambio de DNS | Sitio en línea e indexándose | Pendiente |
 | 7 · Crecimiento | Ritmo semanal de fichas y flujos; comparativas y alternativas | Revisión trimestral en Search Console | Pendiente |

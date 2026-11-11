@@ -2,9 +2,21 @@
 
 Sitio en español para aprender a usar la IA y las herramientas digitales en el trabajo: fichas de herramientas probadas, flujos de trabajo, plantillas y guías. Sustituye al sitio WordPress anterior. El producto, la estructura y la hoja de ruta están en [11 · Plan DigitalNest](docs/11-PLAN-DIGITALNEST.md).
 
-Se construye sobre una base Laravel corporativa con administración Filament; lo que sigue describe esa base. Los módulos Herramientas, Flujos y Plantillas aún no están implementados.
+## Secciones públicas
 
-Actualizado: **14 de octubre de 2026**. El código de los módulos base está implementado; la aceptación completa de producción y algunas revisiones visuales siguen pendientes. El detalle verificable está en [Estado y auditoría](docs/05-AUDITORIA-FINAL.md).
+| Sección | Ruta | Contenido |
+| --- | --- | --- |
+| Inicio | `/` | Buscador, tareas, recomendadas, método, flujos, guías y últimas herramientas |
+| Herramientas | `/herramientas` | Fichas probadas con nota, precio en USD, plan gratis, español, alternativas y categorías |
+| Flujos | `/flujos` | Casos paso a paso con herramientas, plantillas, tiempo, coste y dificultad |
+| Plantillas | `/plantillas` | Prompts, instrucciones y automatizaciones para copiar o descargar |
+| Guías | `/blog` | Tutoriales, comparativas y categoría IA |
+| Buscar | `/buscar` | Búsqueda en todas las secciones |
+| Páginas fijas | `/como-probamos`, `/afiliados`, `/sobre-digitalnest` | Método, transparencia y presentación |
+
+Identidad visual y reglas de diseño: [DESIGN.md](DESIGN.md). Contexto de producto: [PRODUCT.md](PRODUCT.md). Los módulos corporativos del kit base (servicios, portafolio, testimonios, FAQ) están ocultos con `CORPORATE_MODULES_ENABLED=false`. Datos de ejemplo locales: `php artisan db:seed --class=DigitalNestDemoSeeder` (no se ejecuta en producción).
+
+Se construye sobre una base Laravel con administración Filament; lo que sigue describe esa base.
 
 ## Stack y entorno
 

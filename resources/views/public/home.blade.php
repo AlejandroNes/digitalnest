@@ -1,7 +1,7 @@
 @extends('public.layout')
 
 @section('seo')
-    <x-seo />
+    <x-seo fallback-description="Herramientas digitales y de IA probadas en tareas reales, con precio en USD, plan gratis y cómo funcionan en español. Flujos paso a paso, plantillas y guías." />
 @endsection
 
 @section('content')
