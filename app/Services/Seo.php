@@ -9,14 +9,19 @@ use App\Models\Post;
 use App\Models\Project;
 use App\Models\SearchSetting;
 use App\Models\Service;
+use App\Models\Template;
+use App\Models\Tool;
+use App\Models\ToolCategory;
+use App\Models\Workflow;
 use App\PostStatus;
 use App\ProjectStatus;
+use App\ToolStatus;
 use Illuminate\Http\Request;
 
 class Seo
 {
     /** @return array{title: string, description: string, canonical: string, robots: string, image: ?string, type: string, verification: ?string, image_alt: ?string, image_width: ?int, image_height: ?int, image_mime: ?string} */
-    public function metadata(Request $request, Post|Service|LegalPage|Project|null $content = null): array
+    public function metadata(Request $request, Post|Service|LegalPage|Project|Tool|ToolCategory|Workflow|Template|null $content = null): array
     {
         $settings = SearchSetting::current();
         $general = GeneralSetting::current(false);
@@ -29,11 +34,14 @@ class Seo
             $content instanceof Service => $content->is_active,
             $content instanceof LegalPage => $content->is_published,
             $content instanceof Project => $content->status === ProjectStatus::Published,
+            $content instanceof Tool => $content->status === ToolStatus::Published && $content->published_at && $content->published_at->lte(now()),
+            $content instanceof ToolCategory => $content->is_active,
+            $content instanceof Workflow, $content instanceof Template => $content->isPublished(),
             default => true,
         };
-        $imageMedia = $content instanceof Post || $content instanceof Project ? $content->seoImage : null;
+        $imageMedia = $content instanceof Post || $content instanceof Project || $content instanceof Tool || $content instanceof Workflow || $content instanceof Template ? $content->seoImage : null;
         $image = MediaAsset::mediaUrl($imageMedia);
-        if (! $image && ($content instanceof Post || $content instanceof Service || $content instanceof Project)) {
+        if (! $image && ($content instanceof Post || $content instanceof Service || $content instanceof Project || $content instanceof Tool || $content instanceof Workflow)) {
             $imageMedia = $content->image;
             $image = MediaAsset::mediaUrl($imageMedia);
         }
@@ -53,7 +61,7 @@ class Seo
             : ($content?->getAttribute('seo_title') ?: ($content?->getAttribute('title') ?: $content?->getAttribute('name')));
         $description = $content instanceof Service
             ? $content->summary
-            : ($content?->getAttribute('seo_description') ?: ($content?->getAttribute('short_description') ?: ($content?->getAttribute('excerpt') ?: $content?->getAttribute('summary'))));
+            : ($content?->getAttribute('seo_description') ?: ($content?->getAttribute('short_description') ?: ($content?->getAttribute('excerpt') ?: ($content?->getAttribute('summary') ?: ($content?->getAttribute('tagline') ?: ($content instanceof ToolCategory ? $content->description : null))))));
 
         return [
             'title' => $title ?: ($settings->default_title ?: $general->company_name ?: config('app.name')),

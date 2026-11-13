@@ -11,9 +11,15 @@ class PublicContentController extends Controller
 {
     public function post(string $slug): View
     {
-        $content = Post::query()->published()->with(['image.model', 'seoImage'])->where('slug', $slug)->firstOrFail();
+        $post = Post::query()->published()->with(['image.model', 'seoImage', 'categories'])->where('slug', $slug)->firstOrFail();
+        $categoryIds = $post->categories->pluck('id');
 
-        return view('public.content', ['content' => $content, 'body' => $content->content]);
+        return view('public.posts.show', [
+            'post' => $post,
+            'related' => Post::query()->published()->whereKeyNot($post->id)
+                ->when($categoryIds->isNotEmpty(), fn ($query) => $query->whereHas('categories', fn ($query) => $query->whereIn('post_categories.id', $categoryIds)))
+                ->with(['image.model', 'categories'])->newest()->limit(3)->get(),
+        ]);
     }
 
     public function service(string $slug): View

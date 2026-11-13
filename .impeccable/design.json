@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-11T03:30:00Z",
+  "title": "Design System: DigitalNest",
+  "extensions": {
+    "colorMeta": {
+      "sky": { "role": "primary", "displayName": "Celeste DigitalNest", "canonical": "#4cc3f0", "tonalRamp": ["#06364a", "#085a7c", "#08739f", "#1b9ccf", "#4cc3f0", "#8ad8f5", "#c3ecfb", "#e6f6fd"] },
+      "coral": { "role": "secondary", "displayName": "Coral señal", "canonical": "#ff7a45", "tonalRamp": ["#5a1d06", "#8a3412", "#a8401a", "#d9581f", "#ff7a45", "#ffa07c", "#ffd0bd", "#fff0e9"] },
+      "navy": { "role": "neutral", "displayName": "Marino noche", "canonical": "#0b2340", "tonalRamp": ["#050f1c", "#0b2340", "#12345c", "#2a4766", "#4a5b70", "#8b9aab", "#c9d4df", "#eef3f8"] },
+      "paper": { "role": "neutral", "displayName": "Papel", "canonical": "#f6f9fc" },
+      "line": { "role": "neutral", "displayName": "Línea", "canonical": "#dbe5ee" },
+      "pass": { "role": "semantic", "displayName": "Aprobado (Excelente)", "canonical": "#12804a" },
+      "fair": { "role": "semantic", "displayName": "Ámbar (Aceptable)", "canonical": "#9a6200" },
+      "poor": { "role": "semantic", "displayName": "Rojo (Flojo)", "canonical": "#c0322b" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Titular del hero y títulos de página." },
+      "headline": { "displayName": "Headline", "purpose": "Títulos de sección." },
+      "title": { "displayName": "Title", "purpose": "Títulos de bloque y nombres en listas." },
+      "body": { "displayName": "Body", "purpose": "Texto corrido, máximo 68ch." },
+      "label": { "displayName": "Label", "purpose": "Cabeceras de tabla y etiquetas de datos." }
+    },
+    "shadows": [
+      { "name": "panel", "value": "0 0 0 1px #fff, 0 1px 2px #0b23400a, 0 8px 24px -12px #0b23401f, 0 32px 64px -32px #0b234033", "purpose": "Paneles de tablas, ficha y recomendadas." },
+      { "name": "header", "value": "0 1px 1px #0b23400d, 0 10px 30px -14px #0b234040", "purpose": "Cabecera flotante." },
+      { "name": "lift", "value": "0 24px 48px -28px #0b234040", "purpose": "Bloques del bento al pasar el ratón." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Entrada del hero (700ms, desplazamiento de 14px) y elevación de bloques." },
+      { "name": "state", "value": "160ms ease", "purpose": "Hover de botones, chips y filas." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "40rem" },
+      { "name": "md", "value": "48rem" },
+      { "name": "lg", "value": "56rem" },
+      { "name": "xl", "value": "64rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal: píldora marina.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Explorar herramientas</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: .55rem; min-height: 48px; padding: 0 1.4rem; border-radius: 12px; background: #0b2340; color: #fff; font-family: Poppins, system-ui, sans-serif; font-weight: 700; text-decoration: none; transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease; } .ds-btn:hover { background: #12345c; box-shadow: 0 8px 20px -10px #0b234080; transform: translateY(-1px); } .ds-btn:focus-visible { outline: 3px solid #08739f; outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Acción secundaria sobre celeste.",
+      "html": "<div style=\"background:#4cc3f0;padding:16px\"><a class=\"ds-btn-2\" href=\"#\">Cómo probamos</a></div>",
+      "css": ".ds-btn-2 { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.4rem; border-radius: 12px; background: #fff; color: #0b2340; font-family: Poppins, system-ui, sans-serif; font-weight: 700; text-decoration: none; } .ds-btn-2:focus-visible { outline: 3px solid #08739f; outline-offset: 3px; }"
+    },
+    {
+      "name": "Task Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Acceso a una categoría por tarea, con contador.",
+      "html": "<a class=\"ds-chip\" href=\"#\">Video <span class=\"ds-count\">2</span></a>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .5rem 1.1rem; border: 1px solid #dbe5ee; border-radius: 999px; background: #fff; color: #0b2340; font-family: Poppins, system-ui, sans-serif; font-weight: 500; text-decoration: none; transition: border-color 160ms ease, transform 160ms ease; } .ds-chip:hover { border-color: #08739f; transform: translateY(-1px); } .ds-count { display: inline-grid; place-items: center; min-width: 1.5rem; height: 1.5rem; border-radius: 999px; background: #e6f6fd; color: #08739f; font-size: .78rem; font-weight: 600; }"
+    },
+    {
+      "name": "Featured Tag",
+      "kind": "chip",
+      "refersTo": "tag-featured",
+      "description": "Marca coral para herramientas recomendadas.",
+      "html": "<span class=\"ds-tag\">Recomendada</span>",
+      "css": ".ds-tag { display: inline-flex; padding: .15rem .6rem; border-radius: 999px; background: #fff0e9; color: #a8401a; font-family: Poppins, system-ui, sans-serif; font-size: .78rem; font-weight: 600; }"
+    },
+    {
+      "name": "Score Badge",
+      "kind": "custom",
+      "description": "Nota sobre 10 tintada por veredicto.",
+      "html": "<span class=\"ds-score\">9<small>/10</small></span>",
+      "css": ".ds-score { display: inline-flex; align-items: baseline; gap: .1rem; padding: .3rem .6rem; border-radius: 10px; background: #e3f1e9; color: #12804a; font-family: Poppins, system-ui, sans-serif; font-weight: 700; font-size: 1.15rem; line-height: 1; font-variant-numeric: tabular-nums; } .ds-score small { font-size: .62em; font-weight: 700; opacity: .8; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Contenedor blanco de tablas y fichas.",
+      "html": "<div class=\"ds-panel\"><div class=\"ds-panel-head\">Nuestras recomendadas</div><div class=\"ds-panel-body\">ChatGPT · 9/10</div></div>",
+      "css": ".ds-panel { overflow: hidden; border: 1px solid #0b23400f; border-radius: 20px; background: #fff; color: #0b2340; font-family: Poppins, system-ui, sans-serif; box-shadow: 0 1px 2px #0b23400a, 0 8px 24px -12px #0b23401f, 0 32px 64px -32px #0b234033; } .ds-panel-head { padding: 1.1rem 1.4rem; border-bottom: 1px solid #dbe5ee; font-weight: 600; } .ds-panel-body { padding: 1rem 1.4rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Cielo despejado",
+    "overview": "DigitalNest existe para que alguien decida rápido qué herramienta le sirve. Un campo celeste abre la página con aire, el azul marino da firmeza a lo que se lee y se pulsa, y el coral señala solo lo importante. Lo moderno se expresa con superficies redondeadas, sombras suaves en capas, una cabecera flotante y una sola animación de entrada.",
+    "keyCharacteristics": ["Celeste como campo de marca a página completa", "Texto y acciones en azul marino", "Coral raro y con significado", "Tablas de resultados para comparar", "Esquinas generosas y píldoras"],
+    "rules": [
+      { "name": "The Navy Ink Rule", "body": "Sobre celeste, el texto es marino; nunca blanco.", "section": "colors" },
+      { "name": "The Coral Means Something Rule", "body": "El coral solo señala: recomendada, oferta o advertencia.", "section": "colors" },
+      { "name": "The Verdict Colors Are Semantic Rule", "body": "Verde, ámbar y rojo se reservan para la calidad y los ✓/✗.", "section": "colors" },
+      { "name": "The Tabular Numbers Rule", "body": "Precios, notas y conteos usan cifras tabulares.", "section": "typography" },
+      { "name": "The Functional Blur Rule", "body": "El desenfoque solo existe en la cabecera flotante.", "section": "elevation" }
+    ],
+    "dos": ["Usar el celeste como campo completo", "Mostrar nota, precio, plan gratis y español en todo listado", "Iconos SVG de trazo 2.2", "Respetar prefers-reduced-motion"],
+    "donts": ["Texto blanco sobre celeste", "Kickers o secciones numeradas", "Cristal decorativo, texto con degradado o sombras duras", "Cuadrículas de tarjetas iguales", "Emoji como iconos"]
+  }
+}

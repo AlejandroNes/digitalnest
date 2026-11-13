@@ -1,3 +1,4 @@
+@props(['variant' => 'default'])
 @once
     @php
         $settings = \App\Models\SearchSetting::current();
@@ -5,7 +6,40 @@
         $decision = $consent->decision(request(), $settings);
         $privacy = $consent->policyRevision() > 0;
     @endphp
-    @if($settings->cookies_enabled)
+    @if($settings->cookies_enabled && $variant === 'nest')
+        @php($options = ['statistics' => 'Estadísticas', 'marketing' => 'Publicidad', 'preferences' => 'Funcionalidades opcionales'])
+        <section data-cookie-banner aria-label="Preferencias de cookies"
+                 @class([
+                     'fixed inset-x-3 bottom-[calc(4.75rem+env(safe-area-inset-bottom))] bg-surface/95 backdrop-blur-xl z-40 mx-auto max-w-lg rounded-sheet border border-line p-4 shadow-card lg:bottom-6 lg:left-auto lg:right-6 lg:mx-0' => ! $decision,
+                     'text-sm' => (bool) $decision,
+                 ])>
+            <details @if(!$decision) open @endif class="group">
+                <summary @class(['cursor-pointer list-none font-semibold [&::-webkit-details-marker]:hidden', 'text-muted hover:text-ink' => (bool) $decision])>Preferencias de cookies</summary>
+                <p class="mt-2 text-sm text-muted">{{ $settings->cookie_message ?: 'Utilizamos cookies necesarias para el funcionamiento del sitio. La analítica, publicidad y funcionalidades opcionales solo se activan según tus preferencias.' }}</p>
+                @if($privacy)
+                    <a href="{{ route('legal.show', ['type' => 'privacy']) }}" class="mt-1 inline-block text-sm text-accent underline">Política de Privacidad</a>
+                @endif
+                <form method="POST" action="{{ route('cookies.store') }}" data-cookie-consent class="mt-3 flex flex-col gap-3">
+                    @csrf
+                    <input type="hidden" name="return_to" value="{{ '/'.ltrim(request()->path(), '/') }}">
+                    <details class="rounded-2xl bg-raised px-3 py-2 text-sm">
+                        <summary class="cursor-pointer font-medium">Personalizar</summary>
+                        <div class="mt-2 flex flex-col gap-2 pb-1">
+                            <label class="flex items-center gap-2 text-muted"><input type="checkbox" checked disabled class="size-4 accent-(--nest-accent)"> Necesarias (siempre activas)</label>
+                            @foreach($options as $name => $label)
+                                <label class="flex items-center gap-2"><input type="checkbox" name="{{ $name }}" value="1" @checked($decision[$name] ?? false) class="size-4 accent-(--nest-accent)"> {{ $label }}</label>
+                            @endforeach
+                            <button type="submit" name="decision" value="save" class="nest-pressable mt-1 h-10 rounded-full border border-line bg-surface font-semibold">Guardar preferencias</button>
+                        </div>
+                    </details>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="submit" name="decision" value="reject" class="nest-pressable h-11 rounded-full border border-line bg-surface text-sm font-semibold">Rechazar opcionales</button>
+                        <button type="submit" name="decision" value="accept" class="nest-pressable h-11 rounded-full bg-accent text-sm font-semibold text-accent-ink">Aceptar opcionales</button>
+                    </div>
+                </form>
+            </details>
+        </section>
+    @elseif($settings->cookies_enabled)
         <section data-cookie-banner aria-label="Preferencias de cookies" class="border-t border-gray-300 bg-white p-4 text-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100">
             <details @if(!$decision) open @endif>
                 <summary class="cursor-pointer rounded p-2 font-semibold focus-visible:outline-2 focus-visible:outline-offset-2">Preferencias de cookies</summary>

@@ -43,6 +43,16 @@ class Post extends Model
         return $query->where('status', PostStatus::Published)->whereNotNull('published_at')->where('published_at', '<=', now());
     }
 
+    /**
+     * Estimated reading time at 200 words per minute, never below one minute.
+     */
+    public function readingMinutes(): int
+    {
+        $words = str_word_count(strip_tags((string) $this->content), 0, 'áéíóúüñÁÉÍÓÚÜÑ');
+
+        return max(1, (int) ceil($words / 200));
+    }
+
     #[Scope]
     protected function newest(Builder $query): Builder
     {

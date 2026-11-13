@@ -1,6 +1,17 @@
-# Despliegue del Starter Kit
+# Despliegue
 
-Actualizado: 14 de octubre de 2026. Este documento es un procedimiento para el operador, no un registro de despliegue completado. Estado verificable: [05 · Auditoría](05-AUDITORIA-FINAL.md).
+Actualizado: 11 de noviembre de 2026. Este documento es un procedimiento para el operador, no un registro de despliegue completado. Estado verificable: [05 · Auditoría](05-AUDITORIA-FINAL.md).
+
+## DigitalNest: puntos específicos
+
+DigitalNest es un sitio nuevo: no se migra contenido ni URLs desde el WordPress anterior. Además del procedimiento general de las secciones siguientes:
+
+- **`.env`:** `APP_NAME=DigitalNest`, `APP_URL` con el dominio definitivo en HTTPS y `CORPORATE_MODULES_ENABLED=false` (servicios, portafolio, testimonios y FAQ ocultos).
+- **Panel → Configuración general:** nombre del sitio «DigitalNest» (se usa en títulos y en la autoría de guías). **Panel → SEO:** título y descripción por defecto, imagen social y activar la indexación solo cuando el contenido real esté publicado.
+- **Datos de ejemplo:** `DigitalNestDemoSeeder` es solo para desarrollo local y se niega a ejecutarse en producción. No ejecutarlo nunca en el servidor; publicar únicamente contenido real desde el panel.
+- **Fuente:** Poppins se sirve desde `public/fonts/poppins/` (licencia OFL incluida); no requiere servicios externos.
+- **Permisos:** si se guardó una plantilla de permisos para Administrador antes de añadir Herramientas, Flujos y Plantillas, activar sus permisos en Roles y permisos.
+- **Tras publicar:** dar de alta el dominio nuevo en Search Console y enviar `https://<dominio>/sitemap.xml`.
 
 ## Requisitos y preparación
 

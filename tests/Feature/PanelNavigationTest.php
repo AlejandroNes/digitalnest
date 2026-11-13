@@ -69,10 +69,13 @@ class PanelNavigationTest extends TestCase
         $this->actingAs(User::factory()->administrator()->create());
         $this->get('/admin')->assertOk();
         $groups = Filament::getNavigation();
-        $this->assertSame([null, 'Blog y Noticias', 'Portafolio', 'Sitio Corporativo', 'Comunicación', 'SEO y Analítica', 'Configuración y Sistema'],
+        $this->assertSame([null, 'Ofertas', 'Herramientas', 'Flujos y plantillas', 'Blog y Noticias', 'Portafolio', 'Sitio Corporativo', 'Comunicación', 'SEO y Analítica', 'Configuración y Sistema'],
             array_values(array_map(fn (NavigationGroup $group): ?string => $group->getLabel(), $groups)));
         $expected = [
             '' => ['/admin'],
+            'Ofertas' => ['/admin/deals', '/admin/rankings'],
+            'Herramientas' => ['/admin/tools', '/admin/tool-categories'],
+            'Flujos y plantillas' => ['/admin/workflows', '/admin/templates'],
             'Blog y Noticias' => ['/admin/posts', '/admin/post-categories'],
             'Portafolio' => ['/admin/projects', '/admin/project-categories'],
             'Sitio Corporativo' => ['/admin/services', '/admin/testimonials', '/admin/faqs', '/admin/legal-pages', '/admin/media-assets'],
@@ -97,8 +100,8 @@ class PanelNavigationTest extends TestCase
         $urls = collect(Filament::getNavigation())->flatMap(fn (NavigationGroup $group) => $group->getItems())
             ->map(fn (NavigationItem $item): string => parse_url($item->getUrl(), PHP_URL_PATH))->all();
         $this->assertEqualsCanonicalizing(['/admin', '/admin/media-assets', '/admin/posts', '/admin/post-categories',
-            '/admin/projects', '/admin/project-categories',
-            '/admin/services', '/admin/testimonials', '/admin/faqs', '/admin/profile'], $urls);
+            '/admin/projects', '/admin/project-categories', '/admin/tools', '/admin/tool-categories', '/admin/workflows', '/admin/templates',
+            '/admin/services', '/admin/testimonials', '/admin/faqs', '/admin/profile', '/admin/deals', '/admin/rankings'], $urls);
     }
 
     #[TestWith(['guest'])]

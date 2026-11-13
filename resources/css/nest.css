@@ -1,0 +1,106 @@
+@import 'tailwindcss';
+
+@source '../views/nest/**/*.blade.php';
+@source '../views/components/nest/**/*.blade.php';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@font-face { font-family: 'Poppins'; src: url('/fonts/poppins/poppins-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('/fonts/poppins/poppins-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('/fonts/poppins/poppins-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('/fonts/poppins/poppins-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+
+/* Design tokens: light values by default, dark values under [data-theme=dark]. */
+:root {
+    --nest-bg: #f4f4f7;
+    --nest-surface: #ffffff;
+    --nest-raised: #f9f9fb;
+    --nest-line: rgb(15 15 30 / .08);
+    --nest-ink: #0d0d14;
+    --nest-muted: #62627a;
+    --nest-accent: #6d4aff;
+    --nest-accent-ink: #ffffff;
+    --nest-accent-soft: rgb(109 74 255 / .1);
+    --nest-deal: #0f9f6e;
+    --nest-deal-soft: rgb(15 159 110 / .12);
+    --nest-hot: #f05a28;
+    --nest-glass: rgb(255 255 255 / .78);
+    --nest-shadow: 0 1px 2px rgb(15 15 30 / .04), 0 8px 24px -12px rgb(15 15 30 / .14);
+    color-scheme: light;
+}
+
+[data-theme=dark] {
+    --nest-bg: #09090d;
+    --nest-surface: #13131a;
+    --nest-raised: #1b1b24;
+    --nest-line: rgb(255 255 255 / .08);
+    --nest-ink: #f3f3f7;
+    --nest-muted: #9a9ab0;
+    --nest-accent: #8b6cff;
+    --nest-accent-ink: #ffffff;
+    --nest-accent-soft: rgb(139 108 255 / .16);
+    --nest-deal: #34d399;
+    --nest-deal-soft: rgb(52 211 153 / .14);
+    --nest-hot: #ff7a45;
+    --nest-glass: rgb(13 13 19 / .72);
+    --nest-shadow: 0 1px 0 rgb(255 255 255 / .04) inset, 0 12px 32px -16px rgb(0 0 0 / .7);
+    color-scheme: dark;
+}
+
+@theme inline {
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --color-bg: var(--nest-bg);
+    --color-surface: var(--nest-surface);
+    --color-raised: var(--nest-raised);
+    --color-line: var(--nest-line);
+    --color-ink: var(--nest-ink);
+    --color-muted: var(--nest-muted);
+    --color-accent: var(--nest-accent);
+    --color-accent-ink: var(--nest-accent-ink);
+    --color-accent-soft: var(--nest-accent-soft);
+    --color-deal: var(--nest-deal);
+    --color-deal-soft: var(--nest-deal-soft);
+    --color-hot: var(--nest-hot);
+    --color-glass: var(--nest-glass);
+    --shadow-card: var(--nest-shadow);
+    --radius-card: 1.25rem;
+    --radius-sheet: 1.75rem;
+}
+
+@layer base {
+    html { -webkit-tap-highlight-color: transparent; text-size-adjust: 100%; }
+    body { @apply bg-bg font-sans text-ink antialiased; }
+    :focus-visible { outline: 2px solid var(--nest-accent); outline-offset: 2px; border-radius: .5rem; }
+}
+
+@layer components {
+    .nest-card { @apply rounded-card border border-line bg-surface shadow-card; }
+    .nest-pressable { @apply transition duration-150 ease-out active:scale-[.97] motion-reduce:transition-none motion-reduce:active:scale-100; }
+    .nest-scroller { @apply -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:-mx-0 md:scroll-px-0 md:px-0; }
+    .nest-scroller > * { @apply snap-start; }
+    .nest-glass { @apply bg-glass backdrop-blur-xl backdrop-saturate-150; }
+    .nest-num { font-variant-numeric: tabular-nums; }
+    .nest-prose { @apply text-[16px] leading-relaxed text-muted; }
+    .nest-prose :where(h2) { @apply mt-8 mb-3 text-xl font-semibold tracking-tight text-ink; }
+    .nest-prose :where(h3) { @apply mt-6 mb-2 text-lg font-semibold text-ink; }
+    .nest-prose :where(p, ul, ol, blockquote, figure, pre, table) { @apply my-4; }
+    .nest-prose :where(ul) { @apply list-disc pl-5; }
+    .nest-prose :where(ol) { @apply list-decimal pl-5; }
+    .nest-prose :where(li) { @apply my-1.5; }
+    .nest-prose :where(a) { @apply font-medium text-accent underline underline-offset-2; }
+    .nest-prose :where(strong) { @apply font-semibold text-ink; }
+    .nest-prose :where(code) { @apply rounded bg-raised px-1.5 py-0.5 text-[.9em] text-ink; }
+    .nest-prose :where(pre) { @apply overflow-x-auto rounded-2xl bg-raised p-4; }
+    .nest-prose :where(blockquote) { @apply border-l-2 border-accent pl-4 italic; }
+    .nest-prose :where(img) { @apply h-auto max-w-full rounded-2xl; }
+    .nest-prose :where(table) { @apply block w-full overflow-x-auto text-sm; }
+    .nest-prose :where(th, td) { @apply border-b border-line px-3 py-2 text-left; }
+    .nest-prose > :first-child { @apply mt-0; }
+}
+
+@utility pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+@utility pt-safe { padding-top: env(safe-area-inset-top); }
+
+@media (prefers-reduced-motion: no-preference) {
+    @view-transition { navigation: auto; }
+}

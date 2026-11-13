@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <x-site-integrations position="head" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('nest.layout')
+
+@section('seo')
     <x-seo :content="$content" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
-    <x-site-integrations position="body_start" />
-    <main>
-        <h1>{{ $content->title ?: $content->name }}</h1>
+@endsection
+
+@section('content')
+    <div class="mx-auto flex max-w-2xl flex-col gap-6">
+        <x-nest.page-header :title="$content->title ?: $content->name" :back="['url' => url('/'), 'label' => 'Inicio']" />
         @if(method_exists($content, 'image'))
             <x-content-image :media="$content->image" :alt="$content->imageAlt() ?? ''" :priority="true" />
         @endif
-        {!! \App\Services\ContentHtml::sanitize($body) !!}
-    </main>
-    <x-cookie-consent />
+        <article class="nest-card nest-prose p-5 lg:p-8">{!! \App\Services\ContentHtml::sanitize($body) !!}</article>
+    </div>
     <x-contact-assistant />
-    <x-site-integrations position="body_end" />
-</body>
-</html>
+@endsection
