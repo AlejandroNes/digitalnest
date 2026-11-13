@@ -46,6 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ->collapsedSidebarWidth('5rem')
             ->strictAuthorization()
             ->navigationGroups([
+                'Ofertas',
                 'Herramientas',
                 'Flujos y plantillas',
                 'Blog y Noticias',

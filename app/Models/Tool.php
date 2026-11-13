@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 #[Fillable([
@@ -119,15 +120,13 @@ class Tool extends Model
             if (! $tool->wasChanged('slug') || $oldSlug === '' || $newSlug === '') {
                 return;
             }
-            foreach (['', '/alternativas'] as $suffix) {
-                try {
-                    Redirect::query()->updateOrCreate(
-                        ['source' => '/herramientas/'.$oldSlug.$suffix],
-                        ['destination' => '/herramientas/'.$newSlug.$suffix, 'status_code' => 301, 'is_active' => true]
-                    );
-                } catch (\Throwable $exception) {
-                    report($exception);
-                }
+            try {
+                Redirect::query()->updateOrCreate(
+                    ['source' => '/app/'.$oldSlug],
+                    ['destination' => '/app/'.$newSlug, 'status_code' => 301, 'is_active' => true]
+                );
+            } catch (\Throwable $exception) {
+                report($exception);
             }
         });
     }
@@ -147,6 +146,16 @@ class Tool extends Model
         return $this->belongsToMany(self::class, 'tool_alternatives', 'tool_id', 'alternative_id')
             ->withPivot('sort_order')
             ->orderByPivot('sort_order');
+    }
+
+    public function deals(): HasMany
+    {
+        return $this->hasMany(Deal::class);
+    }
+
+    public function rankings(): BelongsToMany
+    {
+        return $this->belongsToMany(Ranking::class)->withPivot(['position', 'verdict', 'best_for']);
     }
 
     public function templates(): BelongsToMany

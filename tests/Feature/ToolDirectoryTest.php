@@ -7,7 +7,6 @@ use App\Filament\Resources\Tools\Pages\CreateTool;
 use App\Filament\Resources\Tools\Pages\EditTool;
 use App\Filament\Resources\Tools\Pages\ListTools;
 use App\Models\Redirect;
-use App\Models\SearchSetting;
 use App\Models\Tool;
 use App\Models\ToolCategory;
 use App\Models\User;
@@ -126,121 +125,27 @@ class ToolDirectoryTest extends TestCase
         $this->assertNotNull($tool->fresh()->published_at);
     }
 
-    public function test_public_listing_shows_only_published_tools_and_filters(): void
-    {
-        $free = Tool::factory()->published()->create(['name' => 'Herramienta Libre', 'pricing_model' => ToolPricingModel::Free]);
-        $paid = Tool::factory()->published()->create(['name' => 'Herramienta Pago', 'pricing_model' => ToolPricingModel::Paid, 'has_free_plan' => false]);
-        Tool::factory()->create(['name' => 'Herramienta Borrador']);
-        Tool::factory()->published()->create(['name' => 'Herramienta Futura', 'published_at' => now()->addDay()]);
-
-        $this->get(route('tools.index'))->assertOk()
-            ->assertSee('Herramienta Libre')->assertSee('Herramienta Pago')
-            ->assertDontSee('Herramienta Borrador')->assertDontSee('Herramienta Futura');
-
-        $this->get(route('tools.index', ['precio' => 'free']))->assertOk()
-            ->assertSee('Herramienta Libre')->assertDontSee('Herramienta Pago');
-
-        $this->get(route('tools.index', ['gratis' => 1]))->assertOk()->assertDontSee('Herramienta Pago');
-        $this->get(route('tools.index', ['precio' => 'invalido']))->assertSessionHasErrors('precio');
-
-        $this->get(route('tools.category', ['slug' => $paid->category->slug]))->assertOk()
-            ->assertSee('Herramienta Pago')->assertDontSee('Herramienta Libre');
-        $this->assertNotNull($free);
-    }
-
-    public function test_category_page_includes_secondary_tools_and_inactive_categories_404(): void
-    {
-        $category = ToolCategory::factory()->create();
-        $tool = Tool::factory()->published()->create(['name' => 'Herramienta Secundaria']);
-        $tool->secondaryCategories()->attach($category);
-
-        $this->get(route('tools.category', ['slug' => $category->slug]))->assertOk()->assertSee('Herramienta Secundaria');
-
-        $category->update(['is_active' => false]);
-        $this->get(route('tools.category', ['slug' => $category->slug]))->assertNotFound();
-    }
-
-    public function test_tool_page_renders_details_structured_data_and_sponsored_link(): void
-    {
-        $tool = Tool::factory()->published()->create([
-            'name' => 'Cursor',
-            'slug' => 'cursor',
-            'affiliate_url' => 'https://example.com/ref/cursor',
-            'rating' => 9,
-            'deal_notes' => '20 % de descuento',
-            'deal_expires_at' => now()->addWeek(),
-        ]);
-
-        $this->get(route('tools.show', ['slug' => 'cursor']))->assertOk()
-            ->assertSee('Cursor')
-            ->assertSee('rel="sponsored noopener"', false)
-            ->assertSee('https://example.com/ref/cursor', false)
-            ->assertSee('"@type":"SoftwareApplication"', false)
-            ->assertSee('"ratingValue":9', false)
-            ->assertSee('20 % de descuento');
-
-        $tool->update(['deal_expires_at' => now()->subDay()]);
-        $this->get(route('tools.show', ['slug' => 'cursor']))->assertDontSee('20 % de descuento');
-    }
-
-    public function test_unsafe_outbound_urls_are_not_rendered(): void
-    {
-        $tool = Tool::factory()->published()->create(['website_url' => 'javascript:alert(1)', 'affiliate_url' => null]);
-
-        $this->assertNull($tool->outboundUrl());
-        $this->get(route('tools.show', ['slug' => $tool->slug]))->assertOk()->assertDontSee('javascript:alert', false);
-    }
-
-    public function test_draft_tools_return_404(): void
-    {
-        $tool = Tool::factory()->create();
-
-        $this->get(route('tools.show', ['slug' => $tool->slug]))->assertNotFound();
-        $this->get(route('tools.alternatives', ['slug' => $tool->slug]))->assertNotFound();
-    }
-
-    public function test_alternatives_page_lists_only_published_alternatives(): void
-    {
-        $tool = Tool::factory()->published()->create(['name' => 'Canva']);
-        $published = Tool::factory()->published()->create(['name' => 'Alternativa Publicada']);
-        $draft = Tool::factory()->create(['name' => 'Alternativa Borrador']);
-
-        $this->get(route('tools.alternatives', ['slug' => $tool->slug]))->assertNotFound();
-
-        $tool->alternatives()->attach([$published->id => ['sort_order' => 1], $draft->id => ['sort_order' => 2]]);
-
-        $this->get(route('tools.alternatives', ['slug' => $tool->slug]))->assertOk()
-            ->assertSee('Alternativas a Canva')
-            ->assertSee('Alternativa Publicada')
-            ->assertDontSee('Alternativa Borrador');
-    }
-
-    public function test_changing_slug_creates_redirects(): void
+    public function test_changing_slug_creates_redirect_to_new_app_profile(): void
     {
         $tool = Tool::factory()->published()->create(['slug' => 'antiguo']);
         $tool->update(['slug' => 'nuevo']);
 
-        $this->assertDatabaseHas(Redirect::class, ['source' => '/herramientas/antiguo', 'destination' => '/herramientas/nuevo', 'status_code' => 301]);
-        $this->assertDatabaseHas(Redirect::class, ['source' => '/herramientas/antiguo/alternativas', 'destination' => '/herramientas/nuevo/alternativas']);
+        $this->assertDatabaseHas(Redirect::class, ['source' => '/app/antiguo', 'destination' => '/app/nuevo', 'status_code' => 301]);
     }
 
-    public function test_sitemap_includes_published_indexable_tools(): void
+    public function test_old_directory_urls_redirect_permanently_to_the_deals_app(): void
     {
-        SearchSetting::factory()->create(['id' => 1, 'indexable' => true]);
-        app()->instance('env', 'production');
-        config(['app.url' => 'https://digitalnest.example.com']);
+        $this->get('/herramientas')->assertRedirect('/explorar')->assertStatus(301);
+        $this->get('/herramientas/categoria/video')->assertRedirect(route('sectors.show', ['slug' => 'video']))->assertStatus(301);
+        $this->get('/herramientas/canva')->assertRedirect(route('apps.show', ['slug' => 'canva']))->assertStatus(301);
+        $this->get('/herramientas/canva/alternativas')->assertRedirect(route('apps.show', ['slug' => 'canva']))->assertStatus(301);
+    }
 
-        $tool = Tool::factory()->published()->create(['slug' => 'publicada']);
-        $tool->alternatives()->attach(Tool::factory()->published()->create(['slug' => 'alternativa'])->id);
-        Tool::factory()->published()->create(['slug' => 'oculta', 'seo_noindex' => true]);
-        Tool::factory()->create(['slug' => 'borrador']);
+    public function test_unsafe_outbound_urls_are_not_rendered_on_app_profile(): void
+    {
+        $tool = Tool::factory()->published()->create(['website_url' => 'javascript:alert(1)', 'affiliate_url' => 'data:text/html,x']);
 
-        $this->get('/sitemap.xml')->assertOk()
-            ->assertSee('<loc>https://digitalnest.example.com/herramientas</loc>', false)
-            ->assertSee('https://digitalnest.example.com/herramientas/publicada</loc>', false)
-            ->assertSee('https://digitalnest.example.com/herramientas/publicada/alternativas</loc>', false)
-            ->assertSee('https://digitalnest.example.com/herramientas/categoria/'.$tool->category->slug.'</loc>', false)
-            ->assertDontSee('/herramientas/oculta', false)
-            ->assertDontSee('/herramientas/borrador', false);
+        $this->get(route('apps.show', ['slug' => $tool->slug]))->assertOk()
+            ->assertDontSee('javascript:alert', false)->assertDontSee('data:text/html', false);
     }
 }

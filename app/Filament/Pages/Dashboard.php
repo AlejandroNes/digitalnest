@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\DealsOverviewWidget;
 use App\Filament\Widgets\QuickActionsWidget;
 use App\Filament\Widgets\RecentActivityWidget;
 use App\Filament\Widgets\SiteSummaryWidget;
@@ -73,6 +74,7 @@ class Dashboard extends BaseDashboard
     {
         return [
             SiteSummaryWidget::class,
+            DealsOverviewWidget::class,
             RecentActivityWidget::class,
             QuickActionsWidget::class,
         ];

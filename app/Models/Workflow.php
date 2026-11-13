@@ -59,7 +59,8 @@ class Workflow extends Model
 
     public static function publicPathsForSlug(string $slug): array
     {
-        return ['/flujos/'.$slug];
+        // No longer public since the deals app redesign: /flujos and /plantillas redirect to /explorar.
+        return [];
     }
 
     protected function intro(): Attribute

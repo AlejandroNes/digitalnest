@@ -1,4 +1,4 @@
-@extends('public.pages.page', ['title' => 'Sobre DigitalNest', 'lede' => 'Herramientas digitales y de IA probadas, explicadas en español, para quien trabaja por su cuenta o en un equipo pequeño.'])
+@extends('public.pages.page', ['title' => 'Sobre DigitalNest', 'lede' => 'Cupones, ofertas y rankings de las mejores apps, probadas y explicadas en español.'])
 
 @section('seo')
     <x-seo title="Sobre DigitalNest" description="Qué es DigitalNest, para quién escribimos y cómo trabajamos." />
@@ -6,16 +6,16 @@
 
 @section('body')
     <h2>Qué hacemos</h2>
-    <p>Probamos herramientas digitales y de IA en tareas reales y te contamos lo que necesitas para decidir: cuánto cuestan, si el plan gratis sirve, cómo funcionan en español y qué alternativas tienes.</p>
+    <p>Reunimos cupones y ofertas verificados de apps de todos los sectores (IA, vídeo, audio, imágenes, hosting, VPN y más) y las comparamos en rankings honestos para que pagues menos por las mejores herramientas.</p>
 
     <h2>Para quién</h2>
     <p>Escribimos para freelancers, creadores y pequeños negocios de habla hispana que quieren trabajar mejor con herramientas digitales sin perder horas investigando.</p>
 
     <h2>Qué encontrarás</h2>
     <ul>
-        <li><a href="{{ route('tools.index') }}">Herramientas</a>: fichas probadas con nota, precio y alternativas.</li>
-        <li><a href="{{ route('workflows.index') }}">Flujos de trabajo</a>: casos reales paso a paso.</li>
-        <li><a href="{{ route('templates.index') }}">Plantillas</a>: prompts y automatizaciones listas para copiar.</li>
+        <li><a href="{{ route('deals.index') }}">Ofertas</a>: cupones y descuentos verificados a mano.</li>
+        <li><a href="{{ route('rankings.index') }}">Rankings</a>: las mejores apps de cada sector, ordenadas.</li>
+        <li><a href="{{ route('explore') }}">Sectores</a>: fichas de apps con nota, precio y alternativas.</li>
         <li><a href="{{ route('posts.index') }}">Guías</a>: tutoriales, comparativas y explicaciones.</li>
     </ul>
 

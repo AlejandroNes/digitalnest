@@ -117,6 +117,12 @@ enum UserRole: string implements HasLabel
             Permission::ViewTemplate,
             Permission::CreateTemplate,
             Permission::UpdateTemplate,
+            Permission::ViewDeal,
+            Permission::CreateDeal,
+            Permission::UpdateDeal,
+            Permission::ViewRanking,
+            Permission::CreateRanking,
+            Permission::UpdateRanking,
         ];
     }
 }

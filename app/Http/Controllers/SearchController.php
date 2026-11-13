@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deal;
 use App\Models\Post;
-use App\Models\Template;
+use App\Models\Ranking;
 use App\Models\Tool;
-use App\Models\Workflow;
+use App\Models\ToolCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -21,21 +22,25 @@ class SearchController extends Controller
         $term = trim(preg_replace('/\s+/u', ' ', (string) ($data['q'] ?? '')));
 
         $results = mb_strlen($term) >= 2 ? [
+            'deals' => Deal::query()->active()->with('tool.logo.model')
+                ->where(fn (Builder $query): Builder => $this->matches($query, $term, ['title', 'description'])
+                    ->orWhereHas('tool', fn (Builder $query): Builder => $this->matches($query, $term, ['name'])))
+                ->ordered()->limit(self::LIMIT)->get(),
+            'sectors' => ToolCategory::query()->active()
+                ->where(fn (Builder $query): Builder => $this->matches($query, $term, ['name']))
+                ->ordered()->limit(self::LIMIT)->get(),
+            'rankings' => Ranking::query()->published()
+                ->where(fn (Builder $query): Builder => $this->matches($query, $term, ['title']))
+                ->ordered()->limit(self::LIMIT)->get(),
             'tools' => Tool::query()->published()->with(['category', 'logo.model'])
                 ->where(fn (Builder $query): Builder => $this->matches($query, $term, ['name', 'tagline']))
-                ->ordered()->limit(self::LIMIT)->get(),
-            'workflows' => Workflow::query()->published()->withCount('steps')
-                ->where(fn (Builder $query): Builder => $this->matches($query, $term, ['title', 'summary']))
-                ->ordered()->limit(self::LIMIT)->get(),
-            'templates' => Template::query()->published()->with(['tools' => fn ($query) => $query->published()])
-                ->where(fn (Builder $query): Builder => $this->matches($query, $term, ['title', 'summary']))
                 ->ordered()->limit(self::LIMIT)->get(),
             'posts' => Post::query()->published()->with(['image.model', 'categories'])
                 ->where(fn (Builder $query): Builder => $this->matches($query, $term, ['title', 'excerpt']))
                 ->newest()->limit(self::LIMIT)->get(),
         ] : [];
 
-        return view('public.search', [
+        return view('nest.search', [
             'term' => $term,
             'results' => $results,
             'total' => collect($results)->sum(fn (Collection $items): int => $items->count()),

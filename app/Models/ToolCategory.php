@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['name', 'slug', 'description', 'is_active', 'sort_order', 'seo_title', 'seo_description', 'seo_noindex'])]
+#[Fillable(['parent_id', 'name', 'slug', 'description', 'icon', 'accent_color', 'is_active', 'sort_order', 'seo_title', 'seo_description', 'seo_noindex'])]
 class ToolCategory extends Model
 {
     /** @use HasFactory<ToolCategoryFactory> */
@@ -38,6 +39,21 @@ class ToolCategory extends Model
     {
         static::saved(fn () => ApplicationCache::invalidateSitemap());
         static::deleted(fn () => ApplicationCache::invalidateSitemap());
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public function rankings(): HasMany
+    {
+        return $this->hasMany(Ranking::class, 'tool_category_id');
     }
 
     /**
@@ -65,6 +81,22 @@ class ToolCategory extends Model
     protected function active(Builder $query): Builder
     {
         return $query->where('is_active', true);
+    }
+
+    /**
+     * This sector's id plus the ids of its active subcategories.
+     *
+     * @return array<int, int>
+     */
+    public function familyIds(): array
+    {
+        return [$this->id, ...$this->children()->active()->pluck('id')->all()];
+    }
+
+    #[Scope]
+    protected function roots(Builder $query): Builder
+    {
+        return $query->whereNull('parent_id');
     }
 
     #[Scope]

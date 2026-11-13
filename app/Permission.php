@@ -91,6 +91,16 @@ enum Permission: string
     case UpdateTemplate = 'templates.update';
     case DeleteTemplate = 'templates.delete';
 
+    case ViewDeal = 'deals.view';
+    case CreateDeal = 'deals.create';
+    case UpdateDeal = 'deals.update';
+    case DeleteDeal = 'deals.delete';
+
+    case ViewRanking = 'rankings.view';
+    case CreateRanking = 'rankings.create';
+    case UpdateRanking = 'rankings.update';
+    case DeleteRanking = 'rankings.delete';
+
     public function module(): string
     {
         return explode('.', $this->value)[0];
@@ -172,6 +182,14 @@ enum Permission: string
             self::CreateTemplate => 'Crear plantillas',
             self::UpdateTemplate => 'Editar plantillas',
             self::DeleteTemplate => 'Eliminar plantillas',
+            self::ViewDeal => 'Ver ofertas y cupones',
+            self::CreateDeal => 'Crear ofertas y cupones',
+            self::UpdateDeal => 'Editar ofertas y cupones',
+            self::DeleteDeal => 'Eliminar ofertas y cupones',
+            self::ViewRanking => 'Ver rankings',
+            self::CreateRanking => 'Crear rankings',
+            self::UpdateRanking => 'Editar rankings',
+            self::DeleteRanking => 'Eliminar rankings',
         };
     }
 }

@@ -57,9 +57,10 @@ class Redirect extends Model
                 'posts.show' => Post::query()->where('slug', $route->parameter('slug'))->exists(),
                 'services.show' => Service::query()->where('slug', $route->parameter('slug'))->exists(),
                 'projects.show' => Project::query()->where('slug', $route->parameter('slug'))->exists(),
-                'tools.show', 'tools.alternatives' => Tool::query()->where('slug', $route->parameter('slug'))->exists(),
-                'workflows.show' => Workflow::query()->where('slug', $route->parameter('slug'))->exists(),
-                'templates.show' => Template::query()->where('slug', $route->parameter('slug'))->exists(),
+                'apps.show' => Tool::query()->where('slug', $route->parameter('slug'))->exists(),
+                'deals.show' => Deal::query()->where('slug', $route->parameter('slug'))->exists(),
+                'sectors.show' => ToolCategory::query()->where('slug', $route->parameter('slug'))->exists(),
+                'rankings.show' => Ranking::query()->where('slug', $route->parameter('slug'))->exists(),
                 default => true,
             };
         } catch (NotFoundHttpException|MethodNotAllowedHttpException) {

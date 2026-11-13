@@ -7,7 +7,6 @@ use App\Filament\Resources\Workflows\Pages\CreateWorkflow;
 use App\Models\Redirect;
 use App\Models\SearchSetting;
 use App\Models\Template;
-use App\Models\Tool;
 use App\Models\ToolCategory;
 use App\Models\User;
 use App\Models\Workflow;
@@ -94,109 +93,27 @@ class WorkflowAndTemplateTest extends TestCase
             ->assertHasFormErrors(['content']);
     }
 
-    public function test_public_workflow_pages_show_steps_tools_and_filters(): void
-    {
-        $tool = Tool::factory()->published()->create(['name' => 'CapCut Ejemplo']);
-        $draftTool = Tool::factory()->create(['name' => 'Herramienta Borrador']);
-        $template = Template::factory()->published()->create(['title' => 'Guion Ejemplo']);
-        $workflow = Workflow::factory()->published()->create([
-            'title' => 'Flujo Publicado',
-            'professions' => [WorkflowProfession::Creator->value],
-        ]);
-        $workflow->steps()->create(['position' => 0, 'title' => 'Paso uno', 'tool_id' => $tool->id, 'template_id' => $template->id]);
-        $workflow->steps()->create(['position' => 1, 'title' => 'Paso dos', 'tool_id' => $draftTool->id]);
-        Workflow::factory()->published()->create(['title' => 'Flujo Docentes', 'professions' => [WorkflowProfession::Teacher->value]]);
-        Workflow::factory()->create(['title' => 'Flujo Borrador']);
-
-        $this->get(route('workflows.index'))->assertOk()
-            ->assertSee('Flujo Publicado')->assertSee('Flujo Docentes')->assertDontSee('Flujo Borrador');
-        $this->get(route('workflows.index', ['para' => 'creator']))->assertOk()
-            ->assertSee('Flujo Publicado')->assertDontSee('Flujo Docentes');
-        $this->get(route('workflows.index', ['para' => 'astronauta']))->assertSessionHasErrors('para');
-
-        $this->get(route('workflows.show', ['slug' => $workflow->slug]))->assertOk()
-            ->assertSeeInOrder(['Paso uno', 'Paso dos'])
-            ->assertSee('CapCut Ejemplo')->assertSee('Guion Ejemplo')
-            ->assertDontSee('Herramienta Borrador')
-            ->assertSee('"@type":"HowTo"', false);
-
-        $this->get(route('tools.show', ['slug' => $tool->slug]))->assertOk()->assertSee('Flujos con CapCut Ejemplo');
-    }
-
-    public function test_draft_workflows_and_templates_return_404(): void
-    {
-        $workflow = Workflow::factory()->create();
-        $template = Template::factory()->create();
-
-        $this->get(route('workflows.show', ['slug' => $workflow->slug]))->assertNotFound();
-        $this->get(route('templates.show', ['slug' => $template->slug]))->assertNotFound();
-        $this->get(route('templates.download', ['slug' => $template->slug]))->assertNotFound();
-    }
-
-    public function test_template_page_escapes_content_and_download_uses_format(): void
-    {
-        $template = Template::factory()->published()->create([
-            'title' => 'Plantilla Segura',
-            'slug' => 'plantilla-segura',
-            'content' => '<script>alert(1)</script> Escribe sobre [tema]',
-            'format' => TemplateFormat::Markdown,
-            'type' => TemplateType::Prompt,
-        ]);
-
-        $this->get(route('templates.show', ['slug' => 'plantilla-segura']))->assertOk()
-            ->assertSee('&lt;script&gt;alert(1)&lt;/script&gt;', false)
-            ->assertDontSee('<script>alert(1)</script>', false)
-            ->assertSee('data-copy="contenido-plantilla"', false);
-
-        $this->get(route('templates.download', ['slug' => 'plantilla-segura']))->assertOk()
-            ->assertHeader('Content-Disposition', 'attachment; filename="plantilla-segura.md"')
-            ->assertHeader('X-Content-Type-Options', 'nosniff')
-            ->assertSee('<script>alert(1)</script> Escribe sobre [tema]', false);
-
-        $this->assertStringStartsWith('text/markdown', $this->get(route('templates.download', ['slug' => 'plantilla-segura']))->headers->get('Content-Type'));
-        $this->assertSame('plantilla-segura.md', $template->downloadFilename());
-    }
-
-    public function test_template_listing_filters_by_type_and_tool(): void
-    {
-        $tool = Tool::factory()->published()->create(['slug' => 'claude']);
-        $prompt = Template::factory()->published()->create(['title' => 'Prompt Uno', 'type' => TemplateType::Prompt]);
-        $prompt->tools()->attach($tool);
-        Template::factory()->published()->create(['title' => 'Skill Dos', 'type' => TemplateType::Skill]);
-
-        $this->get(route('templates.index', ['tipo' => 'skill']))->assertOk()->assertSee('Skill Dos')->assertDontSee('Prompt Uno');
-        $this->get(route('templates.index', ['herramienta' => 'claude']))->assertOk()->assertSee('Prompt Uno')->assertDontSee('Skill Dos');
-    }
-
-    public function test_rich_text_is_sanitized_and_slug_changes_redirect(): void
+    public function test_rich_text_is_sanitized_and_slug_changes_create_no_public_redirects(): void
     {
         $workflow = Workflow::factory()->published()->create(['slug' => 'viejo', 'intro' => '<p>Hola</p><script>x</script>']);
         $this->assertStringNotContainsString('<script', (string) $workflow->intro);
 
         $workflow->update(['slug' => 'nuevo']);
-        $this->assertDatabaseHas(Redirect::class, ['source' => '/flujos/viejo', 'destination' => '/flujos/nuevo', 'status_code' => 301]);
+        Template::factory()->published()->create(['slug' => 'antigua'])->update(['slug' => 'reciente']);
 
-        $template = Template::factory()->published()->create(['slug' => 'antigua']);
-        $template->update(['slug' => 'reciente']);
-        $this->assertDatabaseHas(Redirect::class, ['source' => '/plantillas/antigua', 'destination' => '/plantillas/reciente']);
+        $this->assertDatabaseCount(Redirect::class, 0);
     }
 
-    public function test_sitemap_includes_published_workflows_and_templates(): void
+    public function test_workflows_and_templates_are_no_longer_public(): void
     {
-        SearchSetting::factory()->create(['id' => 1, 'indexable' => true]);
+        $workflow = Workflow::factory()->published()->create();
+        $template = Template::factory()->published()->create();
+
+        foreach (['/flujos', '/flujos/'.$workflow->slug, '/plantillas', '/plantillas/'.$template->slug, '/plantillas/'.$template->slug.'/descargar'] as $path) {
+            $this->get($path)->assertRedirect('/explorar')->assertStatus(301);
+        }
+        SearchSetting::factory()->create(['id' => 1, 'indexable' => true, 'sitemap_enabled' => true]);
         app()->instance('env', 'production');
-        config(['app.url' => 'https://digitalnest.example.com']);
-
-        Workflow::factory()->published()->create(['slug' => 'flujo-visible']);
-        Workflow::factory()->create(['slug' => 'flujo-oculto']);
-        Template::factory()->published()->create(['slug' => 'plantilla-visible']);
-        Template::factory()->published()->create(['slug' => 'plantilla-noindex', 'seo_noindex' => true]);
-
-        $this->get('/sitemap.xml')->assertOk()
-            ->assertSee('https://digitalnest.example.com/flujos</loc>', false)
-            ->assertSee('https://digitalnest.example.com/flujos/flujo-visible</loc>', false)
-            ->assertSee('https://digitalnest.example.com/plantillas/plantilla-visible</loc>', false)
-            ->assertDontSee('flujo-oculto', false)
-            ->assertDontSee('plantilla-noindex', false);
+        $this->get('/sitemap.xml')->assertOk()->assertDontSee('/flujos', false)->assertDontSee('/plantillas', false);
     }
 }

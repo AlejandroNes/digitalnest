@@ -8,6 +8,7 @@ use App\Filament\Resources\MediaAssets\MediaAssetResource;
 use App\Filament\Resources\Posts\PostResource;
 use App\Filament\Resources\Projects\ProjectResource;
 use App\Filament\Resources\Services\ServiceResource;
+use App\Filament\Widgets\DealsOverviewWidget;
 use App\Filament\Widgets\QuickActionsWidget;
 use App\Filament\Widgets\RecentActivityWidget;
 use App\Filament\Widgets\SiteSummaryWidget;
@@ -270,6 +271,7 @@ it('registers new widgets and respects dashboard widget composition', function (
     $dashboard = new Dashboard;
     expect($dashboard->getWidgets())->toBe([
         SiteSummaryWidget::class,
+        DealsOverviewWidget::class,
         RecentActivityWidget::class,
         QuickActionsWidget::class,
     ]);

@@ -1,7 +1,7 @@
 # Instrucciones para agentes de IA — DigitalNest
 
 ## Objetivo
-Construir **solo** lo documentado en README y `docs/`. El producto es DigitalNest, definido en [11 · Plan DigitalNest](docs/11-PLAN-DIGITALNEST.md), sobre la base Laravel corporativa existente. Prioridad: código simple, seguro, mantenible y reutilizable; no añadir funcionalidades especulativas ni secciones que ese plan deja fuera de alcance.
+Construir **solo** lo documentado en README y `docs/`. El producto es DigitalNest, una PWA de cupones, ofertas y rankings de apps definida en [12 · Plan de reestructuración](docs/12-PLAN-REESTRUCTURACION-OFERTAS.md) (sustituye la dirección de producto del plan 11), sobre la base Laravel corporativa existente. Prioridad: código simple, seguro, mantenible y reutilizable; no añadir funcionalidades especulativas ni secciones que ese plan deja fuera de alcance.
 
 ## Referencias y estado de la documentación
 
@@ -22,7 +22,7 @@ No asumir Git limpio ni que los resultados de pruebas de una fecha anterior repr
 1. Antes de programar una fase, inspecciona el repositorio, comprueba dependencias/versiones y propone archivos a modificar. Implementa en pasos pequeños.
 2. Usa convenciones nativas de Laravel y Filament; no crees un framework modular, repository pattern universal, capas o abstracciones sin necesidad demostrada.
 3. No alteres funcionalidades existentes, nombres de rutas, datos ni permisos sin justificarlo y probarlo. Usa migraciones reversibles; no borres datos de producción.
-4. El frontend de DigitalNest tiene diseño propio: entrega datos mediante modelos, servicios sencillos, controladores y Blade. No generes páginas visualmente genéricas ni acoples contenido al diseño. Los módulos corporativos que el plan oculta (servicios, portafolio, testimonios, FAQ, asistente) no se borran sin decisión explícita.
+4. El frontend de DigitalNest tiene diseño propio: entrega datos mediante modelos, servicios sencillos, controladores y Blade. No generes páginas visualmente genéricas ni acoples contenido al diseño. El frontal público usa el layout `nest` y los componentes `x-nest.*`. Los módulos que el plan oculta (servicios, portafolio, testimonios, FAQ, asistente, flujos y plantillas) no se borran sin decisión explícita.
 5. Todo recurso administrativo debe tener autenticación y autorización en servidor (Policies/Gates), no solo ocultación de menús.
 6. Usa validación de servidor, CSRF, escape de salida, protección de subida de archivos, rate limiting, logs sin datos sensibles y pruebas de casos negativos.
 7. Secretos SMTP/API en variables de entorno o almacenamiento cifrado con acceso restringido; nunca en Git, logs ni HTML. No permitir cambios de infraestructura peligrosos desde Filament.
@@ -31,10 +31,10 @@ No asumir Git limpio ni que los resultados de pruebas de una fecha anterior repr
 10. Usa componentes reutilizables donde reduzcan duplicación real. Mantén nombres, comentarios y documentación claros; evita código muerto y dependencias superfluas.
 11. Accesibilidad, diseño responsive del panel, paginación, índices de BD y consultas eficientes. No optimizar prematuramente.
 12. Cada fase termina con `php artisan test`, comprobación de formato/análisis disponible y reporte de cambios, decisiones, riesgos y pendientes. Nunca declares pruebas exitosas sin ejecutarlas.
-13. No agregar backups integrados, ecommerce, CRM, reservas, newsletter, multi-tenancy, constructor de páginas ni multiidioma avanzado.
+13. No agregar backups integrados, ecommerce o pagos propios, CRM, reservas, newsletter, cuentas de usuario públicas, multi-tenancy, constructor de páginas ni multiidioma avanzado. Ofertas, cupones, rankings y enlaces de afiliado forman parte del producto; notificaciones push, comparativas, cuentas y alertas de precio requieren aprobación.
 
 ## Flujo de trabajo
-- Lee `docs/03-PLAN-DE-IMPLEMENTACION.md` y `docs/11-PLAN-DIGITALNEST.md`; implementa **una fase a la vez** y propón los campos de cada módulo nuevo antes de crear migraciones.
+- Lee `docs/03-PLAN-DE-IMPLEMENTACION.md` y `docs/12-PLAN-REESTRUCTURACION-OFERTAS.md`; implementa **una fase a la vez** y propón los campos de cada módulo nuevo antes de crear migraciones.
 - Ante ambigüedad, elige la solución mínima reversible y documenta el supuesto; pregunta solo si afecta seguridad, datos o alcance.
 - Entrega al terminar: archivos cambiados, migraciones, comandos, pruebas realizadas y pasos manuales requeridos.
 - No ejecutes comandos destructivos, despliegues ni cambios de credenciales sin autorización explícita.

@@ -2,36 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Deal;
+use App\Models\Ranking;
 use App\Models\Tool;
 use App\Models\ToolCategory;
-use App\Models\Workflow;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 
 class HomeController extends Controller
 {
     public function __invoke(): View
     {
-        $featured = Tool::query()->published()->where('is_featured', true)
-            ->with(['category', 'logo.model'])->ordered()->limit(5)->get();
+        $dealRelations = ['tool.logo.model'];
 
-        if ($featured->isEmpty()) {
-            $featured = Tool::query()->published()->with(['category', 'logo.model'])
-                ->orderByDesc('rating')->orderBy('name')->limit(5)->get();
-        }
-
-        return view('public.home', [
-            'featured' => $featured,
-            'categories' => ToolCategory::query()->active()
-                ->withCount(['tools' => fn (Builder $query): Builder => $query->published()])
-                ->whereHas('tools', fn (Builder $query): Builder => $query->published())
-                ->ordered()->get(),
-            'latest' => Tool::query()->published()->with(['category', 'logo.model'])
-                ->latest('published_at')->limit(4)->get(),
-            'toolCount' => Tool::query()->published()->count(),
-            'guides' => Post::query()->published()->with(['image.model', 'categories'])->newest()->limit(3)->get(),
-            'workflows' => Workflow::query()->published()->withCount('steps')->ordered()->limit(3)->get(),
+        return view('nest.home', [
+            'featuredDeals' => Deal::query()->active()->with($dealRelations)->ordered()->limit(6)->get(),
+            'expiringDeals' => Deal::query()->active()->expiringWithin(3)->with($dealRelations)->orderBy('expires_at')->limit(6)->get(),
+            'sectors' => ToolCategory::query()->active()->roots()->ordered()->get(),
+            'ranking' => Ranking::query()->published()->ordered()
+                ->with(['tools' => fn ($query) => $query->published()->with('logo.model')->limit(5)])
+                ->first(),
+            'latestTools' => Tool::query()->published()->with('logo.model')->latest('published_at')->limit(6)->get(),
         ]);
     }
 }

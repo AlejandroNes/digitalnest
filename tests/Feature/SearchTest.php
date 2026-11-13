@@ -24,12 +24,12 @@ class SearchTest extends TestCase
 
         $this->get(route('search', ['q' => 'VIDEO']))->assertOk()
             ->assertSee('Editor de Video Rápido')
-            ->assertSee('Crea un video para redes')
-            ->assertSee('Guion corto')
+            ->assertDontSee('Crea un video para redes')
+            ->assertDontSee('Guion corto')
             ->assertSee('Cómo editar video con IA')
             ->assertDontSee('Video Borrador')
             ->assertDontSee('Otra cosa')
-            ->assertSee('4 resultados')
+            ->assertSee('2 resultados')
             ->assertSee('noindex, follow', false);
     }
 

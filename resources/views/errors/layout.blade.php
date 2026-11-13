@@ -5,31 +5,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#4cc3f0">
+    <meta name="theme-color" content="#09090d">
     <title>@yield('title') · DigitalNest</title>
     <style>
         @font-face { font-family: 'Poppins'; src: url('/fonts/poppins/poppins-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
         @font-face { font-family: 'Poppins'; src: url('/fonts/poppins/poppins-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
         *, *::before { box-sizing: border-box; }
-        body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 1.5rem; background: radial-gradient(50rem 30rem at 85% -10%, #b9ecff, transparent 60%), #4cc3f0; color: #0b2340; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-        main { width: min(34rem, 100%); padding: clamp(1.75rem, 1rem + 4vw, 3rem); border-radius: 24px; background: #fff; box-shadow: 0 1px 2px #0b23400a, 0 32px 64px -32px #0b234059; }
-        .brand { display: inline-flex; align-items: center; gap: .55rem; color: inherit; font-weight: 700; font-size: 1.15rem; letter-spacing: -.025em; text-decoration: none; }
-        .code { margin: 2rem 0 0; color: #08739f; font-weight: 700; font-size: 4rem; line-height: 1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
-        h1 { margin: .5rem 0 0; font-weight: 700; font-size: clamp(1.6rem, 1.2rem + 2vw, 2.2rem); line-height: 1.05; letter-spacing: -.035em; text-wrap: balance; }
-        p.text { margin: .9rem 0 0; color: #4a5b70; font-size: 1.05rem; line-height: 1.6; }
+        body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 1.25rem; background: radial-gradient(40rem 26rem at 90% -10%, #8b6cff55, transparent 60%), #09090d; color: #f3f3f7; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+        main { width: min(32rem, 100%); padding: clamp(1.5rem, 1rem + 4vw, 2.75rem); border: 1px solid #ffffff14; border-radius: 28px; background: #13131a; box-shadow: 0 24px 64px -24px #000c; }
+        .brand { display: inline-flex; align-items: center; gap: .6rem; color: inherit; font-weight: 700; font-size: 1.1rem; letter-spacing: -.02em; text-decoration: none; }
+        .brand img { width: 32px; height: 32px; border-radius: 9px; }
+        .code { margin: 2rem 0 0; color: #8b6cff; font-weight: 700; font-size: 4rem; line-height: 1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+        h1 { margin: .5rem 0 0; font-weight: 700; font-size: clamp(1.5rem, 1.2rem + 2vw, 2.1rem); line-height: 1.1; letter-spacing: -.03em; text-wrap: balance; }
+        p.text { margin: .9rem 0 0; color: #9a9ab0; font-size: 1rem; line-height: 1.6; }
         .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.75rem; }
-        .btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.4rem; border-radius: 999px; background: #0b2340; color: #fff; font-weight: 700; text-decoration: none; }
-        .btn:hover { background: #12345c; }
-        .btn--light { background: #e6f6fd; color: #08739f; }
-        .btn--light:hover { background: #d4f0fc; }
-        a:focus-visible { outline: 3px solid #08739f; outline-offset: 3px; }
-        ::selection { background: #4cc3f0; color: #0b2340; }
+        .btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.4rem; border-radius: 999px; background: #8b6cff; color: #fff; font-weight: 700; text-decoration: none; }
+        .btn:hover { background: #7a59ff; }
+        .btn--light { background: #1b1b24; color: #f3f3f7; border: 1px solid #ffffff14; }
+        .btn--light:hover { background: #24242f; }
+        a:focus-visible { outline: 2px solid #8b6cff; outline-offset: 3px; }
     </style>
 </head>
 <body>
     <main aria-labelledby="error-title">
         <a class="brand" href="{{ url('/') }}">
-            <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#4cc3f0"/><path d="M7 17.5c2.6 4.4 6 6.5 9 6.5s6.4-2.1 9-6.5" fill="none" stroke="#0b2340" stroke-width="2.6" stroke-linecap="round"/><path d="M11 13.5l3.4 3.4L21.5 9.5" fill="none" stroke="#0b2340" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="8" r="2.4" fill="#ff7a45"/></svg>
+            <img src="/icons/icon-192.png" alt="">
             DigitalNest
         </a>
         <p class="code" aria-hidden="true">@yield('code')</p>
@@ -40,7 +40,7 @@
                 @yield('actions')
             @else
                 <a class="btn" href="{{ url('/') }}">Volver al inicio</a>
-                <a class="btn btn--light" href="{{ url('/herramientas') }}">Ver herramientas</a>
+                <a class="btn btn--light" href="{{ url('/ofertas') }}">Ver ofertas</a>
             @endif
         </div>
     </main>

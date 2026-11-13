@@ -1,22 +1,11 @@
 {{-- Shared shell for fixed pages. Expects $title, $lede and a "body" section. --}}
-@extends('public.layout')
+@extends('nest.layout')
 
 @section('content')
-    <div class="dn-page-head dn-page-head--sky">
-        <div class="dn-wrap">
-            <nav class="dn-crumbs" aria-label="Migas de pan">
-                <a href="{{ url('/') }}">Inicio</a> <span aria-hidden="true">/</span>
-                <span aria-current="page">{{ $title }}</span>
-            </nav>
-            <h1 class="dn-display dn-title" style="margin-top:1rem">{{ $title }}</h1>
-            <p class="dn-lede">{{ $lede }}</p>
-        </div>
-    </div>
-    <div class="dn-wrap">
-        <article class="dn-article">
-            <div class="dn-prose">
-                @yield('body')
-            </div>
+    <div class="mx-auto flex max-w-2xl flex-col gap-6">
+        <x-nest.page-header :title="$title" :subtitle="$lede" :back="['url' => url('/'), 'label' => 'Inicio']" />
+        <article class="nest-card nest-prose p-5 lg:p-8">
+            @yield('body')
         </article>
     </div>
 @endsection

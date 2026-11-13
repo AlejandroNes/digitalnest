@@ -95,19 +95,19 @@ class SitemapControlsTest extends TestCase
         $index = simplexml_load_string($response->getContent());
         $this->assertNotFalse($index);
         $this->assertSame('sitemapindex', $index->getName());
-        $this->assertCount(4, $index->sitemap);
+        $this->assertCount(5, $index->sitemap);
         $this->assertSame('https://corporate.example.com/sitemaps/1.xml', (string) $index->sitemap[0]->loc);
         $urls = [];
-        for ($page = 1; $page <= 4; $page++) {
+        for ($page = 1; $page <= 5; $page++) {
             $xml = simplexml_load_string($this->get('/sitemaps/'.$page.'.xml')->assertOk()->getContent());
             $this->assertSame('urlset', $xml->getName());
             foreach ($xml->url as $entry) {
                 $urls[] = (string) $entry->loc;
             }
         }
-        $this->assertSame(['https://corporate.example.com/', 'https://corporate.example.com/contacto', 'https://corporate.example.com/proyectos', 'https://corporate.example.com/servicios/consulting', 'https://corporate.example.com/sobre-digitalnest', 'https://corporate.example.com/como-probamos', 'https://corporate.example.com/afiliados'], $urls);
+        $this->assertSame(['https://corporate.example.com/', 'https://corporate.example.com/contacto', 'https://corporate.example.com/proyectos', 'https://corporate.example.com/servicios/consulting', 'https://corporate.example.com/explorar', 'https://corporate.example.com/ofertas', 'https://corporate.example.com/top', 'https://corporate.example.com/sobre-digitalnest', 'https://corporate.example.com/como-probamos', 'https://corporate.example.com/afiliados'], $urls);
         $this->get('/sitemaps/0.xml')->assertNotFound();
-        $this->get('/sitemaps/5.xml')->assertNotFound();
+        $this->get('/sitemaps/6.xml')->assertNotFound();
         $this->get('/sitemaps/huge.xml')->assertNotFound();
     }
 
@@ -124,7 +124,7 @@ class SitemapControlsTest extends TestCase
         $this->assertSame('/blog', parse_url((string) $xml->url[3]->loc, PHP_URL_PATH));
         $this->assertSame($post->updated_at->toAtomString(), (string) $xml->url[3]->lastmod);
         $this->assertSame($post->updated_at->toAtomString(), (string) $xml->url[4]->lastmod);
-        $this->assertCount(8, $xml->url);
+        $this->assertCount(11, $xml->url);
         GeneralSetting::factory()->create(['id' => 1, 'maintenance_enabled' => true]);
         $this->get('/sitemap.xml')->assertDontSee('/blog/dated', false);
     }

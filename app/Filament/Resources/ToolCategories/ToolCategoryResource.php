@@ -10,6 +10,8 @@ use App\Models\ToolCategory;
 use BackedEnum;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -50,6 +52,14 @@ class ToolCategoryResource extends Resource
                         ContentFields::title('name', 'Nombre'),
                         ContentFields::slug(),
                     ]),
+                    Grid::make(['default' => 1, 'md' => 3])->schema([
+                        Select::make('parent_id')->label('Sector padre')
+                            ->relationship('parent', 'name', fn ($query, ?ToolCategory $record) => $query->whereNull('parent_id')->when($record, fn ($query) => $query->whereKeyNot($record->getKey())))
+                            ->searchable()->preload()->placeholder('Ninguno (sector principal)'),
+                        TextInput::make('icon')->label('Icono')->maxLength(64)->placeholder('sparkles')
+                            ->helperText('Nombre de Heroicon, sin prefijo.'),
+                        ColorPicker::make('accent_color')->label('Color de acento')->regex('/^#[0-9A-Fa-f]{6}$/'),
+                    ]),
                     Textarea::make('description')->label('Introducción')->rows(4)->maxLength(2000)
                         ->helperText('Se muestra al inicio de la página de la categoría. Explica qué tareas resuelven estas herramientas.')
                         ->columnSpanFull(),
@@ -72,6 +82,7 @@ class ToolCategoryResource extends Resource
             ->stackedOnMobile()
             ->columns([
                 TextColumn::make('name')->label('Nombre')->searchable()->sortable()->wrap(),
+                TextColumn::make('parent.name')->label('Sector padre')->placeholder('—')->sortable(),
                 TextColumn::make('slug')->label('Slug')->searchable()->color('gray'),
                 TextColumn::make('tools_count')->label('Herramientas')->counts('tools')->badge()->color('info')->sortable(),
                 TextColumn::make('sort_order')->label('Orden')->sortable(),

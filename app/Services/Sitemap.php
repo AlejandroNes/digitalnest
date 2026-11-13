@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\Deal;
 use App\Models\LegalPage;
 use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\Project;
+use App\Models\Ranking;
 use App\Models\Service;
-use App\Models\Template;
 use App\Models\Tool;
 use App\Models\ToolCategory;
-use App\Models\Workflow;
 use Generator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
@@ -156,9 +156,7 @@ class Sitemap
                 yield [$path, $service->updated_at?->toAtomString()];
             }
         }
-        yield from $this->toolEntries();
-        yield from $this->publishedEntries(Workflow::class, 'workflows.index', 'workflows.show');
-        yield from $this->publishedEntries(Template::class, 'templates.index', 'templates.show');
+        yield from $this->marketplaceEntries();
         foreach (LegalPage::query()->published()->select(['type', 'content_updated_at'])->cursor() as $page) {
             yield [route('legal.show', ['type' => $page->type->value], false), $page->content_updated_at?->toAtomString()];
         }
@@ -169,60 +167,32 @@ class Sitemap
         }
     }
 
-    /** @return Generator<int, array{string, ?string}> */
-    private function toolEntries(): Generator
-    {
-        if (! Route::has('tools.index')) {
-            return;
-        }
-        $modified = Tool::query()->published()->max('updated_at');
-        if (! $modified) {
-            return;
-        }
-        yield [route('tools.index', absolute: false), Carbon::parse($modified)->toAtomString()];
-
-        $categories = ToolCategory::query()->active()->where('seo_noindex', false)
-            ->whereHas('tools', fn (Builder $query): Builder => $query->published())
-            ->orderBy('id')->select(['id', 'slug', 'updated_at'])->cursor();
-        foreach ($categories as $category) {
-            yield [route('tools.category', ['slug' => $category->slug], false), $category->updated_at?->toAtomString()];
-        }
-
-        $tools = Tool::query()->published()->where('seo_noindex', false)
-            ->select(['id', 'slug', 'seo_canonical', 'updated_at'])
-            ->withExists(['alternatives as has_published_alternatives' => fn (Builder $query): Builder => $query->published()])
-            ->orderBy('id')->lazy(1000);
-        foreach ($tools as $tool) {
-            $path = route('tools.show', ['slug' => $tool->slug], false);
-            if (! InternalUrl::path($path) || ($tool->seo_canonical && $tool->seo_canonical !== $path)) {
-                continue;
-            }
-            yield [$path, $tool->updated_at?->toAtomString()];
-            if ($tool->has_published_alternatives) {
-                yield [route('tools.alternatives', ['slug' => $tool->slug], false), $tool->updated_at?->toAtomString()];
-            }
-        }
-    }
-
     /**
-     * @param  class-string<Workflow|Template>  $model
+     * Deals app sections: explore, deals feed, rankings, sectors, app profiles, active deals and rankings.
+     *
      * @return Generator<int, array{string, ?string}>
      */
-    private function publishedEntries(string $model, string $indexRoute, string $showRoute): Generator
+    private function marketplaceEntries(): Generator
     {
-        if (! Route::has($indexRoute)) {
+        if (! Route::has('deals.index')) {
             return;
         }
-        $modified = $model::query()->published()->max('updated_at');
-        if (! $modified) {
-            return;
+        $latestDeal = Deal::query()->active()->max('updated_at');
+        yield [route('explore', absolute: false), null];
+        yield [route('deals.index', absolute: false), $latestDeal ? Carbon::parse($latestDeal)->toAtomString() : null];
+        yield [route('rankings.index', absolute: false), null];
+
+        foreach (ToolCategory::query()->active()->where('seo_noindex', false)->orderBy('id')->select(['slug', 'updated_at'])->cursor() as $sector) {
+            yield [route('sectors.show', ['slug' => $sector->slug], false), $sector->updated_at?->toAtomString()];
         }
-        yield [route($indexRoute, absolute: false), Carbon::parse($modified)->toAtomString()];
-        foreach ($model::query()->published()->where('seo_noindex', false)->orderBy('id')->select(['id', 'slug', 'seo_canonical', 'updated_at'])->lazy(1000) as $record) {
-            $path = route($showRoute, ['slug' => $record->slug], false);
-            if (InternalUrl::path($path) && (! $record->seo_canonical || $record->seo_canonical === $path)) {
-                yield [$path, $record->updated_at?->toAtomString()];
-            }
+        foreach (Tool::query()->published()->where('seo_noindex', false)->orderBy('id')->select(['id', 'slug', 'updated_at'])->lazy(1000) as $tool) {
+            yield [route('apps.show', ['slug' => $tool->slug], false), $tool->updated_at?->toAtomString()];
+        }
+        foreach (Deal::query()->active()->orderBy('id')->select(['id', 'tool_id', 'slug', 'updated_at'])->lazy(1000) as $deal) {
+            yield [route('deals.show', ['slug' => $deal->slug], false), $deal->updated_at?->toAtomString()];
+        }
+        foreach (Ranking::query()->published()->where('seo_noindex', false)->orderBy('id')->select(['slug', 'updated_at'])->cursor() as $ranking) {
+            yield [route('rankings.show', ['slug' => $ranking->slug], false), $ranking->updated_at?->toAtomString()];
         }
     }
 }

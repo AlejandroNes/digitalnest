@@ -1,4 +1,4 @@
-@extends('public.pages.page', ['title' => 'Cómo probamos las herramientas', 'lede' => 'Lo que hacemos antes de publicar una ficha, un flujo o una plantilla, y cómo ponemos la nota.'])
+@extends('public.pages.page', ['title' => 'Cómo probamos las herramientas', 'lede' => 'Lo que hacemos antes de publicar una ficha, un ranking o una oferta, y cómo ponemos la nota.'])
 
 @section('seo')
     <x-seo title="Cómo probamos las herramientas" description="Nuestro método: usamos cada herramienta en tareas reales, medimos precio, plan gratis y español, y ponemos una nota del 1 al 10 con fecha." />
